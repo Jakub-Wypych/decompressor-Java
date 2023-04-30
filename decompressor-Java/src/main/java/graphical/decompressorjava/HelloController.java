@@ -1,4 +1,4 @@
-package decompressor.decompressorjava;
+package graphical.decompressorjava;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
