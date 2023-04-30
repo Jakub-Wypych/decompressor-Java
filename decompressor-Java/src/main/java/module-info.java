@@ -4,6 +4,6 @@ module decompressor.decompressorjava {
             
         requires org.controlsfx.controls;
                             
-    opens decompressor.decompressorjava to javafx.fxml;
-    exports decompressor.decompressorjava;
+    opens graphical.decompressorjava to javafx.fxml;
+    exports graphical.decompressorjava;
 }
