@@ -1,24 +1,26 @@
 package decompressor;
 
+import decompressor.Fileoperators.CompressedFile;
 import decompressor.Ident.*; // package that deals with identifier
+import decompressor.Password.Password;
+import decompressor.Password.ReadPassword;
 
 /* Used for decompressing files,
 takes care of communication between classes */
 public class Decompress {
-    // Bitwork - used for reading/writing bits
-    // THE BEGINNING OF DECOMPRESSION
-    // OpenCompressedFile - open the compressed file (done)
-    // ReadIdent - get information from identifier (done)
-    // ReadPassword - reads password given by user, if no password given set it to 0x00
-    // CheckIdent - analyze the info from ident and act accordingly (used for checking for errors) (done)
-    // ReadRawDictionary - read RawDictionary
-    // MakeTree - makes a 'tree' from RawDictionary called Dictionary (I think such functions in java library already exist)
-    // Decipher - the 'deciphering' part of decompression
-    public void decompress(String filepath) {
-        byte password = 0x00;
+    /* TODO
+    *   Bitwork - needs to be able to read N bits and write N bits
+    *   ReadRawDictionary - (needs Bitwork) reads the raw dictionary from infile
+    *   RawDictionary - stores the raw dictionary
+    *   MakeTree - creates a tree from raw dictionary
+    *   Dictionary - stores the tree and allow movement throughout the tree
+    *   Decipher - does the "deciphering" part of the decompression
+    *   Graphical interface */
+    public static void decompress(String filepath, String raw_password) {
         CompressedFile compressedFile = new CompressedFile(filepath);
         Ident ident = ReadIdent.read(compressedFile);
-        CheckIdent.check(ident, password);
+        Password password = ReadPassword.makepassword(raw_password);
+        CheckIdent.check(ident, password.password());
         System.out.println(ident);
     }
 }
