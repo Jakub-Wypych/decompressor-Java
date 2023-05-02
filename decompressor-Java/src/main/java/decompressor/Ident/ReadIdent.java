@@ -1,12 +1,15 @@
 package decompressor.Ident;
 
-import decompressor.CompressedFile;
+import decompressor.Fileoperators.CompressedFile;
 
 /* Reads raw Ident and extracts information out of it,
 store the info in record Ident and returns it */
 public class ReadIdent {
     public static Ident read(CompressedFile compressedFile) {
-        byte readbyte = compressedFile.ReadByte();
+        Byte readbyte = compressedFile.ReadByte();
+        if(readbyte == null) {
+            throw new RuntimeException(new Exception("ERROR: File is empty!"));
+        }
         boolean compressed = (readbyte&0x01) != 0;
         boolean password = (readbyte&0x08) != 0;
         byte bit_read = (readbyte&0x06) == 6 ? (byte) 16 : (readbyte&0x06) == 2 ? (byte) 12 : (byte) 8;
