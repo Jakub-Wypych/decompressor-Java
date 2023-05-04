@@ -51,7 +51,5 @@ public final class Ident {
         return bit_read;
     }
 
-    public byte stray_bits() {
-        return stray_bits;
-    }
+    public byte stray_bits() { return stray_bits; }
 }
