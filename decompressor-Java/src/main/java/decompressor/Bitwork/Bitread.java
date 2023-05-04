@@ -8,10 +8,11 @@ import java.util.ArrayList;
 /* Opens compressed file for reading */
 public class Bitread {
     private final FileInputStream infile;
+    private final byte password;
     private Byte read_byte;
     private int byte_pos;
 
-    public Bitread(String filepath) {
+    public Bitread(String filepath, byte password) {
         if(filepath == null) {
             throw new RuntimeException(new Exception("ERROR: No file given!"));
         }
@@ -21,10 +22,11 @@ public class Bitread {
             System.out.println("ERROR: Couldn't find file: " + filepath);
             throw new RuntimeException(e);
         }
-        read_byte = readByte();
+        read_byte = readByte(); // REMEMBER: FIRST BYTE ISN'T READ WITH PASSWORD!!!
         if(read_byte == null)
             throw new RuntimeException(new Exception("ERROR: File is empty!"));
         byte_pos = 0;
+        this.password = password;
     }
 
     private Byte readByte() {
@@ -47,6 +49,7 @@ public class Bitread {
                 if(read_byte == null)
                     return bits;
                 byte_pos = 0;
+                read_byte = (byte) (read_byte^password);
             }
             if(((read_byte<<byte_pos)&0x80) != 0)
                 bits.add((byte) 1);
