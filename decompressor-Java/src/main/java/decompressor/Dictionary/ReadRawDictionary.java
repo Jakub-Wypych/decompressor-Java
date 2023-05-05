@@ -8,15 +8,16 @@ import java.util.ArrayList;
 which later will be used to make a tree
 */
 public class ReadRawDictionary {
-    public static ArrayList<RawDictionary> read(Bitread bitread, byte bit) {
-        ArrayList<RawDictionary> rawDictionaries = new ArrayList<>();
+    public static ArrayList<Object> read(Bitread bitread, byte bit) {
+        ArrayList<Object> rawDictionaries = new ArrayList<>();
 
         ArrayList<Byte> found_symbol = ReadRawDictionary.next_symbol(bitread, bit); // reading first symbol
         int previous_probability = ReadRawDictionary.convert_to_int(bitread.readNbits(4)); // reading first prob
         rawDictionaries.add(new RawDictionary(found_symbol,previous_probability)); // adding first node
+        ArrayList<Byte> previous_symbol = found_symbol;
 
         found_symbol = ReadRawDictionary.next_symbol(bitread, bit); // reading next symbol
-        while(!rawDictionaries.get(rawDictionaries.size()-1).symbol().equals(found_symbol)) { // checking if recently read symbol is the same as the previous one
+        while(!previous_symbol.equals(found_symbol)) { // checking if recently read symbol is the same as the previous one
             int found_probability = ReadRawDictionary.convert_to_int(bitread.readNbits(4)); // reading the prob of the recently read symbol
 
             if(found_probability > 9) { // it has the same prob as the previous symbol
@@ -30,6 +31,7 @@ public class ReadRawDictionary {
                 rawDictionaries.add(new RawDictionary(found_symbol, found_probability)); // adding recently read symbol with its different prob
                 previous_probability = found_probability; // now the previous prob is the recent prob
             }
+            previous_symbol = found_symbol;
             found_symbol = ReadRawDictionary.next_symbol(bitread, bit); // reading next (recently read) symbol
         }
         return rawDictionaries;
