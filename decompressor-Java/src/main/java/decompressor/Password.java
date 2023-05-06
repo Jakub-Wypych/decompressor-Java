@@ -5,7 +5,7 @@ public class Password {
     private final byte password;
     public Password(String raw_password) {
         if(raw_password == null) {
-            this.password = ((byte) 0x00);
+            this.password = 0x00;
             return;
         }
         char[] password_array = raw_password.toCharArray();
@@ -13,6 +13,8 @@ public class Password {
         for (int i=1; i<password_array.length;i++) {
             password_key^=password_array[i];
         }
+        if(password_key == 0x00)
+            password_key = 0x01;
         this.password = password_key;
     }
 

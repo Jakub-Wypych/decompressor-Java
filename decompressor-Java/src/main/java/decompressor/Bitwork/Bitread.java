@@ -5,7 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/* Opens compressed file for reading */
+/* Opens compressed file for reading
+ */
 public class Bitread {
     private final FileInputStream infile;
     private final byte password;
@@ -41,9 +42,9 @@ public class Bitread {
         }
     }
 
-    public ArrayList<Byte> readNbits(int length) {
+    public ArrayList<Byte> readNbits(int N) {
         ArrayList<Byte> bits = new ArrayList<>();
-        for(int i=0; i<length; i++) {
+        for(int i=0; i<N; i++) {
             if(byte_pos > 7) {
                 read_byte = readByte();
                 if(read_byte == null)
