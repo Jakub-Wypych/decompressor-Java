@@ -1,7 +1,9 @@
 package decompressor.Dictionary;
 
+/* Interface used for Tree class
+ */
 public interface Node {
-    int getValue();
+    int value();
     Object left();
     Object right();
 }
