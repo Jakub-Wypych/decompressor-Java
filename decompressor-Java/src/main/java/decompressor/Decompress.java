@@ -12,28 +12,28 @@ import java.util.ArrayList;
 takes care of communication between classes */
 public class Decompress {
     /* TODO
-    *   Bitwrite - needs to be able to write bits
-    *   Truncate - cuts off the stray bytes
-    *   Graphical interface
-    *   Outfilepath - needs to be read */
+    *   Graphical interface */
     public static void decompress(String infilepath, String outfilepath, String raw_password) {
         Password password = new Password(raw_password);
         Bitread bitread = new Bitread(infilepath, password.getPassword()); // setting up bitread (also reading raw ident at the same time)
-        Bitwrite bitwrite = new Bitwrite(outfilepath); // setting up bitwrite
         Ident ident = new Ident(bitread.readNbits(8));
         ident.check(password.getPassword());
-
-        System.out.println(ident); // DEBUG
-
         ArrayList<Object> rawDictionaries = ReadRawDictionary.read(bitread, ident.bit_read());
 
-        for (Object o: rawDictionaries) { // DEBUG
+        // DEBUG
+        System.out.println(ident); // print ident
+        for (Object o: rawDictionaries) { // print dictionary
             RawDictionary rd = (RawDictionary)o;
             System.out.println(rd.symbol() + " " + rd.probability());
         }
 
         Tree dictionary = new Tree(rawDictionaries);
+        Bitwrite bitwrite = new Bitwrite(outfilepath); // setting up bitwrite
         Decipher.decipher(bitread, bitwrite, dictionary);
+        if(bitwrite.getBufferSize() != 0)
+            throw new RuntimeException(new Exception("ERROR: Failure in deciphering!")); // should never happen, but you never know
         Turncate.cut(outfilepath, dictionary, ident.stray_bits());
+        bitwrite.close();
+        bitread.close();
     }
 }

@@ -3,18 +3,19 @@ package decompressor;
 /* Main Class, only used to run Decompress and handle options */
 public class Main {
     public static void main(String[] args) {
-        if(args.length != 2 && args.length != 4) {
+        if(args.length != 2 && args.length != 4 && args.length != 6) {
             throw new RuntimeException(new Exception("ERROR: Insufficient amount of arguments given!"));
         }
         String infilepath = null;
-        String outfilepath = null;
+        String outfilepath = "decompressed.bin"; // default option
         String password = null;
         for (int i=0; i<args.length;i++) {
             try {
-                if(args[i].equals("-i"))
-                    infilepath = args[i+1];
-                if (args[i].equals("-p"))
-                    password = args[i+1];
+                switch (args[i]) {
+                    case "-i" -> infilepath = args[i + 1];
+                    case "-o" -> outfilepath = args[i + 1];
+                    case "-p" -> password = args[i + 1];
+                }
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new RuntimeException(e);
             }

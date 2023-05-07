@@ -60,4 +60,13 @@ public class Bitread {
         }
         return bits;
     }
+
+    public void close() {
+        try {
+            infile.close();
+        } catch (IOException e) {
+            System.out.println("ERROR: Failure to close the infile!");
+            throw new RuntimeException(e);
+        }
+    }
 }

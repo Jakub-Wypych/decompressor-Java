@@ -1,13 +1,38 @@
 package decompressor;
 
+import decompressor.Dictionary.Node;
 import decompressor.Dictionary.Tree;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 
 /* during Decipher it writes needless bytes at end of file,
 this class cuts them off
  */
 public class Turncate {
-    // https://stackoverflow.com/questions/3301445/read-last-byte-from-file-and-truncate-to-size <- very useful
-    public static void cut(String file, Tree tree, int stray_bits) {
-        // probably will need to close the outfilepath in bitwrite
+    public static void cut(String filepath, Tree root, int stray_bits) {
+        int bytes_to_cut = 0;
+        Node current_node = (Node) root.getRoot();
+        for(int i =0; i<stray_bits; i++) {
+            if(current_node.left() == null || current_node.right() == null) { // we've reached a leaf
+                bytes_to_cut++;
+                current_node = (Node) root.getRoot();
+            }
+            current_node = (Node) current_node.left();
+        }
+        try {
+            RandomAccessFile outfile = new RandomAccessFile(filepath, "rwd");
+            if(outfile.length() <= bytes_to_cut)
+                throw new RuntimeException(new Exception("ERROR: Compressed file is damaged!"));
+            outfile.setLength(outfile.length()-bytes_to_cut);
+            outfile.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR: Couldn't open file: " + filepath);
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            System.out.println("ERROR: Couldn't modify file: " + filepath);
+            throw new RuntimeException(e);
+        }
     }
 }
