@@ -47,6 +47,11 @@ public final class Ident {
     public String toString() {
         return "Stray bits = " + stray_bits + "; password = " + password + "; bit_read = " + bit_read + "; compressed = " + compressed;
     }
+
+    public boolean isPassword() { return password; }
+
+    public boolean isCompressed() { return compressed; }
+
     public byte bit_read() {
         return bit_read;
     }

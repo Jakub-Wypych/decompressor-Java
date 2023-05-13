@@ -13,19 +13,14 @@ public class Bitread {
     private Byte read_byte;
     private int byte_pos;
 
-    public Bitread(String filepath, byte password) {
+    public Bitread(String filepath, byte password) throws FileNotFoundException, FileIsEmpty {
         if(filepath == null) {
             throw new RuntimeException(new Exception("ERROR: No file given!"));
         }
-        try {
-            infile = new FileInputStream(filepath);
-        } catch (FileNotFoundException e) {
-            System.out.println("ERROR: Couldn't find file: " + filepath);
-            throw new RuntimeException(e);
-        }
+        infile = new FileInputStream(filepath);
         read_byte = readByte(); // REMEMBER: FIRST BYTE ISN'T READ WITH PASSWORD!!!
         if(read_byte == null)
-            throw new RuntimeException(new Exception("ERROR: File is empty!"));
+            throw new FileIsEmpty("ERROR: File is empty!");
         byte_pos = 0;
         this.password = password;
     }
