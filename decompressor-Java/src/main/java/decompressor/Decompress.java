@@ -2,20 +2,29 @@ package decompressor;
 
 import decompressor.Bitwork.Bitread;
 import decompressor.Bitwork.Bitwrite;
+import decompressor.Bitwork.FileIsEmpty;
 import decompressor.Dictionary.Tree;
 import decompressor.Dictionary.RawDictionary;
 import decompressor.Dictionary.ReadRawDictionary;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /* Used for decompressing files,
 takes care of communication between classes */
 public class Decompress {
-    /* TODO
-    *   Graphical interface */
     public static void decompress(String infilepath, String outfilepath, String raw_password) {
         Password password = new Password(raw_password);
-        Bitread bitread = new Bitread(infilepath, password.getPassword()); // setting up bitread (also reading raw ident at the same time)
+        Bitread bitread; // setting up bitread (also reading raw ident at the same time)
+        try {
+            bitread = new Bitread(infilepath, password.getPassword());
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR: Couldn't find file: " + infilepath);
+            throw new RuntimeException(e);
+        } catch (FileIsEmpty e) {
+            System.out.println("ERROR: File is empty!");
+            throw new RuntimeException(e);
+        }
         Ident ident = new Ident(bitread.readNbits(8));
         ident.check(password.getPassword());
         ArrayList<Object> rawDictionaries = ReadRawDictionary.read(bitread, ident.bit_read());
