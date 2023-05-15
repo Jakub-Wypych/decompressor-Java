@@ -3,15 +3,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 
 <!-- This view stores the textfields for user input (infile, outfile and password) -->
-<?import javafx.scene.layout.AnchorPane?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="graphical.decompressorjava.MainController" >
-  <TextField  promptText="Enter input file here..."   fx:id="inputfileTextfield"   style="-fx-border-color: black"  layoutX="20" layoutY="20"   onKeyTyped="#onInputfileKeyTyped" />
-  <Label      text="inputLable"                       fx:id="inputLabel"        style="-fx-text-fill: red"          layoutX="175" layoutY="25"  visible="false" />
-  <TextField  promptText="Enter password here..."     fx:id="passwordTextfield" style="-fx-border-color: black"     layoutX="20" layoutY="60"   visible="false" onKeyTyped="#onPasswordKeyTyped" />
-  <Label      text="File is password protected!"      fx:id="passwordLabel"     style="-fx-text-fill: red"          layoutX="175" layoutY="65"  visible="false" />
-  <TextField  promptText="Enter output file here..."  fx:id="outputfileTextfield"  style="-fx-border-color: black"     layoutX="20" layoutY="100"  onKeyTyped="#checkInputfileTextField" />
-  <Button     text="Submit" onAction="#onSubmitButtonClick" layoutX="140" layoutY="160" />
+  <TextField  promptText="Enter input file here..."   fx:id="inputfileTextfield"    style="-fx-border-color: black"     layoutX="20"  layoutY="20"    onKeyTyped="#onInputfileKeyTyped"                         />
+  <Label      text="inputLabel"                       fx:id="inputLabel"            style="-fx-text-fill: red"          layoutX="100" layoutY="50"                                            visible="false"   />
+  <Button     text="Select File"                      id="infilepath"                                                   layoutX="175" layoutY="21"    onAction="#onFileChooser"                                 />
+  <TextField  promptText="Enter password here..."     fx:id="passwordTextfield"     style="-fx-border-color: black"     layoutX="20"  layoutY="80"    onKeyTyped="#onPasswordKeyTyped"        visible="false"   />
+  <Label      text="File is password protected!"      fx:id="passwordLabel"         style="-fx-text-fill: red"          layoutX="175" layoutY="85"                                            visible="false"   />
+  <TextField  promptText="Enter output file here..."  fx:id="outputfileTextfield"   style="-fx-border-color: black"     layoutX="20"  layoutY="140"   onKeyTyped="#checkInputfileTextField"                     />
+  <Label      text="Select:"                                                                                            layoutX="175" layoutY="145"                                                             />
+  <Button     text="File"                             id="outfilepath"                                                  layoutX="210" layoutY="141"   onAction="#onFileChooser"                                 />
+  <Button     text="Directory"                                                                                          layoutX="245" layoutY="141"   onAction="#onDirectoryChooser"                            />
+  <Button     text="Submit"                                                                                             layoutX="140" layoutY="200"   onAction="#onSubmitButtonClick"                           />
 </AnchorPane>

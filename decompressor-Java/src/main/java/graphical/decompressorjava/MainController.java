@@ -5,29 +5,25 @@ import decompressor.Bitwork.FileIsEmpty;
 import decompressor.Decompress;
 import decompressor.Ident;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class MainController {
-    @FXML
+
     public Label inputLabel;
-    @FXML
     public TextField passwordTextfield;
-    @FXML
     public TextField inputfileTextfield;
-    @FXML
     public Label passwordLabel;
-    @FXML
     public TextField outputfileTextfield;
 
-    @FXML
     public void onSubmitButtonClick(ActionEvent event) {
         if(!checkInputfileTextField())
             return;
@@ -83,9 +79,8 @@ public class MainController {
         return false;
     }
 
-    public void onInputfileKeyTyped(KeyEvent keyEvent) { // resets inputfileTextField border color
-        TextField inputfileTextField = (TextField) keyEvent.getSource();
-        inputfileTextField.setStyle("-fx-border-color: black");
+    public void onInputfileKeyTyped() {
+        inputfileTextfield.setStyle("-fx-border-color: black");
         inputLabel.setVisible(false);
         passwordTextfield.clear();
         passwordTextfield.setVisible(false);
@@ -95,5 +90,29 @@ public class MainController {
     public void onPasswordKeyTyped() {
         passwordTextfield.setStyle("-fx-border-color: black");
         passwordLabel.setVisible(false);
+    }
+
+    public void onFileChooser(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File("C:\\"));
+        File filepath = fileChooser.showOpenDialog( ((Node) event.getSource()).getScene().getWindow());
+        if(filepath == null) // User pressed cancel
+            return;
+        if(((Node) event.getSource()).getId().equals("outfilepath"))
+            outputfileTextfield.setText(filepath.getAbsolutePath());
+        else if (((Node) event.getSource()).getId().equals("infilepath"))
+            inputfileTextfield.setText(filepath.getAbsolutePath());
+        onInputfileKeyTyped();
+        checkInputfileTextField();
+    }
+
+    public void onDirectoryChooser(ActionEvent event) {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory(new File("C:\\"));
+        File directorypath = directoryChooser.showDialog(((Node) event.getSource()).getScene().getWindow());
+        if(directorypath == null) // User pressed cancel
+            return;
+        outputfileTextfield.setText(directorypath.getAbsolutePath() + "\\decompressed.bin");
+        checkInputfileTextField();
     }
 }
