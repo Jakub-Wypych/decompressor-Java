@@ -19,7 +19,7 @@ public class Tree {
                 Node left = (Node) objectArrayList.get(0);
                 Node right = (Node) objectArrayList.get(1);
                 int value = left.value() + right.value();
-                BlankNode blanknode = new BlankNode(left, right, value);
+                BlankNode blanknode = new BlankNode(left, right, value, (left.x()+ right.x())/2);
                 System.out.println(blanknode);
                 objectArrayList.remove(1);
                 objectArrayList.remove(0);

@@ -33,7 +33,7 @@ public class Decompress {
         System.out.println(ident); // print ident
         for (Object o: rawDictionaries) { // print dictionary
             RawDictionary rd = (RawDictionary)o;
-            System.out.println(rd.symbol() + " " + rd.probability());
+            System.out.println(rd.symbol() + " " + rd.probability() + "; x = " + rd.getX());
         }
 
         Tree dictionary = new Tree(rawDictionaries);

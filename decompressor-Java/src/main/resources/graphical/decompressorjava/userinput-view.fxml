@@ -13,9 +13,10 @@
   <Button     text="Select File"                      id="infilepath"                                                   layoutX="175" layoutY="21"    onAction="#onFileChooser"                                 />
   <TextField  promptText="Enter password here..."     fx:id="passwordTextfield"     style="-fx-border-color: black"     layoutX="20"  layoutY="80"    onKeyTyped="#onPasswordKeyTyped"        visible="false"   />
   <Label      text="File is password protected!"      fx:id="passwordLabel"         style="-fx-text-fill: red"          layoutX="175" layoutY="85"                                            visible="false"   />
-  <TextField  promptText="Enter output file here..."  fx:id="outputfileTextfield"   style="-fx-border-color: black"     layoutX="20"  layoutY="140"   onKeyTyped="#checkInputfileTextField"                     />
+  <TextField  promptText="Enter output file here..."  fx:id="outputfileTextfield"   style="-fx-border-color: black"     layoutX="20"  layoutY="140"   onKeyTyped="#onOutputfileKeyTyped"                        />
   <Label      text="Select:"                                                                                            layoutX="175" layoutY="145"                                                             />
   <Button     text="File"                             id="outfilepath"                                                  layoutX="210" layoutY="141"   onAction="#onFileChooser"                                 />
   <Button     text="Directory"                                                                                          layoutX="245" layoutY="141"   onAction="#onDirectoryChooser"                            />
+  <Label      text="File not found!"                  fx:id="outputLabel"           style="-fx-text-fill: red"          layoutX="100" layoutY="171"                                           visible="false"   />
   <Button     text="Submit"                                                                                             layoutX="140" layoutY="200"   onAction="#onSubmitButtonClick"                           />
 </AnchorPane>

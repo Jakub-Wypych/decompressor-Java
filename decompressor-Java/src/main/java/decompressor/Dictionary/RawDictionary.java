@@ -4,7 +4,14 @@ import java.util.ArrayList;
 
 /* Stores the raw dictionary
  */
-public record RawDictionary(ArrayList<Byte> symbol, int probability) implements Node {
+public final class RawDictionary extends NodePos implements Node {
+    private final ArrayList<Byte> symbol;
+    private final int probability;
+
+    public RawDictionary(ArrayList<Byte> symbol, int probability) {
+        this.symbol = symbol;
+        this.probability = probability;
+    }
 
     @Override
     public String toString() {
@@ -26,5 +33,18 @@ public record RawDictionary(ArrayList<Byte> symbol, int probability) implements 
     @Override
     public Object right() {
         return null; // it's a "leaf" so no more branches
+    }
+
+    @Override
+    public double x() {
+        return getX();
+    }
+
+    public ArrayList<Byte> symbol() {
+        return symbol;
+    }
+
+    public int probability() {
+        return probability;
     }
 }
