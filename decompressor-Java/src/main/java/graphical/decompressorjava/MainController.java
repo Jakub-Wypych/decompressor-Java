@@ -18,17 +18,13 @@ import java.util.ArrayList;
 
 public class MainController {
 
-    public Label inputLabel;
-    public TextField passwordTextfield;
-    public TextField inputfileTextfield;
-    public Label passwordLabel;
-    public TextField outputfileTextfield;
+    public Label inputLabel, passwordLabel, outputLabel;
+    public TextField passwordTextfield, inputfileTextfield, outputfileTextfield;
 
     public void onSubmitButtonClick(ActionEvent event) {
-        if(!checkInputfileTextField())
+        if(!checkInputfileTextField() || !checkOutfilepath())
             return;
-        if(passwordLabel.isVisible() && passwordTextfield.getText().isEmpty())
-            return;
+        //if(passwordLabel.isVisible() && passwordTextfield.getText().isEmpty()) return; // checkInputfileTextField already checks for that
         String inputfilepath = inputfileTextfield.getText();
         String outputfilepath, password;
         if(outputfileTextfield.getText().isEmpty())
@@ -42,27 +38,24 @@ public class MainController {
         stage.close();
     }
 
-    public boolean checkInputfileTextField() {
+    private boolean checkInputfileTextField() {
         String infilepath = inputfileTextfield.getText();
-        if (infilepath.isEmpty()) {
-            inputLabel.setVisible(true);
-            inputLabel.setText("An input file is required!");
-            inputfileTextfield.setStyle("-fx-border-color: red");
-            return false;
-        }
+        if (infilepath.isEmpty()) // did user input the input file path?
+            return inputError("An input file is required!");
         try {
-            Bitread bitread = new Bitread(infilepath, (byte) 0x00);
+            Bitread bitread = new Bitread(infilepath, (byte) 0x00); // throws FileNotFoundException and FileIsEmpty
             ArrayList<Byte> raw_ident = bitread.readNbits(8);
             Ident ident = new Ident(raw_ident);
-            if (!ident.isCompressed()) {
+            if (!ident.isCompressed()) { // is the given file compressed?
                 return inputError("File is not compressed!");
             }
-            if (ident.isPassword()) {
-                if(!passwordTextfield.getText().isEmpty())
-                    return true;
-                passwordTextfield.setStyle("-fx-border-color: red");
-                passwordTextfield.setVisible(true);
-                passwordLabel.setVisible(true);
+            if (ident.isPassword()) { // is it password protected?
+                if(passwordTextfield.getText().isEmpty()) { // has the user given a password?
+                    passwordTextfield.setStyle("-fx-border-color: red");
+                    passwordTextfield.setVisible(true);
+                    passwordLabel.setVisible(true);
+                    return false;
+                }
             }
         } catch (FileNotFoundException e) {
             return inputError("File not found!");
@@ -79,40 +72,70 @@ public class MainController {
         return false;
     }
 
-    public void onInputfileKeyTyped() {
+    public void onInputfileKeyTyped() { // User is changing the input file path
+        // resetting inputTextfield
         inputfileTextfield.setStyle("-fx-border-color: black");
         inputLabel.setVisible(false);
+        // resetting passwordTextfield
         passwordTextfield.clear();
         passwordTextfield.setVisible(false);
         passwordLabel.setVisible(false);
+        // checking the out file path (if null don't do anything)
+        checkOutfilepath();
     }
 
-    public void onPasswordKeyTyped() {
+    public void onPasswordKeyTyped() { /* Turns off the password warning, needs to check outfile path,
+                                        * can only exist if infile path is correct, if infile path is modified it stops existing */
         passwordTextfield.setStyle("-fx-border-color: black");
         passwordLabel.setVisible(false);
+        checkOutfilepath();
     }
 
-    public void onFileChooser(ActionEvent event) {
+    public void onOutputfileKeyTyped() { // User is inputting the outfile path, turn off any warnings and check the input file path
+        outputfileTextfield.setStyle("-fx-border-color: black");
+        outputLabel.setVisible(false);
+        checkInputfileTextField();
+    }
+
+    public void onFileChooser(ActionEvent event) { // User is choosing the output file path, need to check outfile path and infile path
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File("C:\\"));
-        File filepath = fileChooser.showOpenDialog( ((Node) event.getSource()).getScene().getWindow());
+        fileChooser.setInitialDirectory(new File("C:\\")); // default path 'C:\'
+        File filepath = fileChooser.showOpenDialog( ((Node) event.getSource()).getScene().getWindow()); // show the window
         if(filepath == null) // User pressed cancel
             return;
-        if(((Node) event.getSource()).getId().equals("outfilepath"))
+        if(((Node) event.getSource()).getId().equals("outfilepath")) {
             outputfileTextfield.setText(filepath.getAbsolutePath());
-        else if (((Node) event.getSource()).getId().equals("infilepath"))
+            onOutputfileKeyTyped();
+            // checkOutfilepath(); // onInputfileKeyTyped already does that, but I leave it here just in case in future it doesn't
+        } else if (((Node) event.getSource()).getId().equals("infilepath")) {
             inputfileTextfield.setText(filepath.getAbsolutePath());
-        onInputfileKeyTyped();
+            onInputfileKeyTyped();
+        }
         checkInputfileTextField();
     }
 
-    public void onDirectoryChooser(ActionEvent event) {
+    public void onDirectoryChooser(ActionEvent event) { // User is choosing the output file directory, need to check outfile path and infile path
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setInitialDirectory(new File("C:\\"));
-        File directorypath = directoryChooser.showDialog(((Node) event.getSource()).getScene().getWindow());
+        directoryChooser.setInitialDirectory(new File("C:\\")); // default path 'C:\'
+        File directorypath = directoryChooser.showDialog(((Node) event.getSource()).getScene().getWindow()); // show the window
         if(directorypath == null) // User pressed cancel
             return;
-        outputfileTextfield.setText(directorypath.getAbsolutePath() + "\\decompressed.bin");
+        outputfileTextfield.setText(directorypath.getAbsolutePath() + "\\decompressed.bin"); /* it's a directory chooser not file chooser,
+                                                                                              * so we append 'decompressed.bin' by default on the end */
+        onOutputfileKeyTyped();
+        checkOutfilepath();
         checkInputfileTextField();
+    }
+
+    private boolean checkOutfilepath() {
+        String filepath = outputfileTextfield.getText();
+        if (filepath == null) // no output file path -> use default 'decompressed.bin'
+            return true;
+        File file = new File(filepath);
+        if(file.canWrite()) {
+            outputfileTextfield.setStyle("-fx-border-color: red");
+            outputLabel.setVisible(true);
+        }
+        return !file.canWrite();
     }
 }

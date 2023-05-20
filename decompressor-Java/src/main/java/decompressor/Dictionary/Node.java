@@ -6,4 +6,5 @@ public interface Node {
     int value();
     Object left();
     Object right();
+    double x(); // coordinate
 }
