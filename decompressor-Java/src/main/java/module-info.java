@@ -6,4 +6,6 @@ module decompressor.decompressorjava {
                             
     opens graphical.decompressorjava to javafx.fxml;
     exports graphical.decompressorjava;
+    exports graphical.decompressorjava.UserInputView;
+    opens graphical.decompressorjava.UserInputView to javafx.fxml;
 }

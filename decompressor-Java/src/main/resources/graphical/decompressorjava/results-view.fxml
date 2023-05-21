@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+
+<TabPane    xmlns:fx="http://javafx.com/fxml"
+            fx:controller="graphical.decompressorjava.ResultsViewController" >
+    <tabs>
+        <Tab text="Identifier" closable="false">
+            <Label fx:id="ident_label" />
+        </Tab>
+        <Tab text="Huffman Tree" closable="false">
+            <Label fx:id="huffman_label" />
+        </Tab>
+        <Tab text="Output File" closable="false">
+            <Label fx:id="output_label" />
+        </Tab>
+    </tabs>
+</TabPane>
