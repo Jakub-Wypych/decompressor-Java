@@ -7,10 +7,12 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 
+/* Handles File Chooser and Directory Chooser
+ */
 public class ChooserController {
-    private final UserViewController controller;
+    private final UserInputViewController controller;
 
-    public ChooserController(UserViewController controller) {
+    public ChooserController(UserInputViewController controller) {
         this.controller = controller;
     }
 

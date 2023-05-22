@@ -2,10 +2,12 @@ package graphical.decompressorjava.UserInputView;
 
 import java.io.File;
 
+/* Handles outputTextField
+ */
 public class OutputController {
-    private final UserViewController controller;
+    private final UserInputViewController controller;
 
-    public OutputController(UserViewController controller) {
+    public OutputController(UserInputViewController controller) {
         this.controller = controller;
     }
 

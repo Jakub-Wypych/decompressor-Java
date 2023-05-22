@@ -7,10 +7,12 @@ import decompressor.Ident;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+/* Handles InputTextField
+ */
 public class InputController {
-    private final UserViewController controller;
+    private final UserInputViewController controller;
 
-    public InputController(UserViewController controller) {
+    public InputController(UserInputViewController controller) {
         this.controller = controller;
     }
 
