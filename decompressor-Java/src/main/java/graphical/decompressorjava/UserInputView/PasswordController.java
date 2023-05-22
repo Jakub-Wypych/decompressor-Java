@@ -1,9 +1,11 @@
 package graphical.decompressorjava.UserInputView;
 
+/* Handles PasswordTextField
+ */
 public class PasswordController {
-    private final UserViewController controller;
+    private final UserInputViewController controller;
 
-    public PasswordController(UserViewController controller) {
+    public PasswordController(UserInputViewController controller) {
         this.controller = controller;
     }
 

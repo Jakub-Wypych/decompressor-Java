@@ -1,11 +1,15 @@
 package graphical.decompressorjava.UserInputView;
 
+import graphical.decompressorjava.Switcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class UserViewController {
+/* Primarily handles user input (typing and button presses),
+also handles switching to its scene
+ */
+public class UserInputViewController extends Switcher {
     @FXML
     Label inputLabel, passwordLabel, outputLabel;
     @FXML
@@ -17,12 +21,22 @@ public class UserViewController {
     private final OutputController outputController;
     private final ChooserController chooserController;
 
-    public UserViewController() {
+    public UserInputViewController() {
         submitController = new SubmitController(this);
         passwordController = new PasswordController(this);
         inputController = new InputController(this);
         outputController = new OutputController(this);
         chooserController = new ChooserController(this);
+    }
+
+    @Override
+    public String getUrl() {
+        return "userinput-view.fxml";
+    }
+    @Override
+    public void setUp() {
+        getStage().setResizable(false);
+        getStage().setTitle("Decompression App");
     }
     public void onSubmitButtonClick(ActionEvent event) {
         submitController.tryDecompress(event);

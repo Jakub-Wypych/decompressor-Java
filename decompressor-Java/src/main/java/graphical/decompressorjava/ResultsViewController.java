@@ -3,11 +3,19 @@ package graphical.decompressorjava;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class ResultsViewController {
+/* Shows results of decompression
+ */
+public class ResultsViewController extends Switcher {
     @FXML
     Label ident_label, output_label, huffman_label;
 
-    public void setIdent_label(String text) {
-        ident_label.setText(text);
+    @Override
+    public String getUrl() {
+        return "results-view.fxml";
+    }
+
+    @Override
+    public void setUp() {
+        ((ResultsViewController) getController()).ident_label.setText("egg");
     }
 }

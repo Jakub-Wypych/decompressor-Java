@@ -4,18 +4,15 @@ import decompressor.Decompress;
 import decompressor.Results;
 import graphical.decompressorjava.ResultsViewController;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
+/* Handles submit button press, decompression and switching to results view
+ */
 public class SubmitController {
-    private final UserViewController controller;
+    private final UserInputViewController controller;
 
-    public SubmitController(UserViewController controller) {
+    public SubmitController(UserInputViewController controller) {
         this.controller = controller;
     }
 
@@ -42,21 +39,7 @@ public class SubmitController {
     }
 
     private void switchSceneResults(ActionEvent event, Results results) { // TODO needs Results
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("results-view.fxml"));
-        Parent root;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException e) {
-            System.out.println("ERROR: Failed to load results-view!");
-            throw new RuntimeException(e);
-        }
-
-        ResultsViewController resultsViewController = fxmlLoader.getController();
-        resultsViewController.setIdent_label("EGG");
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 320, 240);
-        stage.setScene(scene);
-        stage.show();
+        ResultsViewController resultsViewController = new ResultsViewController();
+        resultsViewController.switchToMe((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 }
