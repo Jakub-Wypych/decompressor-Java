@@ -1,4 +1,4 @@
-package graphical.decompressorjava.UserInputView;
+package graphical.decompressorjava.userInputView;
 
 import graphical.decompressorjava.Switcher;
 import javafx.event.ActionEvent;

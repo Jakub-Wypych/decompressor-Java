@@ -1,10 +1,10 @@
 package decompressor;
 
-import decompressor.Bitwork.Bitread;
-import decompressor.Bitwork.Bitwrite;
-import decompressor.Dictionary.Tree;
-import decompressor.Dictionary.Node;
-import decompressor.Dictionary.RawDictionary;
+import decompressor.bitwork.Bitread;
+import decompressor.bitwork.Bitwrite;
+import decompressor.dictionary.Tree;
+import decompressor.dictionary.Node;
+import decompressor.dictionary.RawDictionary;
 
 import java.util.ArrayList;
 

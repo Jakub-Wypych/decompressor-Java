@@ -7,7 +7,8 @@
 
 <!-- This view stores the textfields for user input (infile, outfile and password) -->
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="graphical.decompressorjava.UserInputView.UserInputViewController" >
+            fx:controller="graphical.decompressorjava.userInputView.UserInputViewController"
+            prefHeight="240" prefWidth="320" >
   <TextField  promptText="Enter input file here..."   fx:id="inputfileTextfield"    style="-fx-border-color: black"     layoutX="20"  layoutY="20"    onKeyTyped="#onInputfileKeyTyped"                         />
   <Label      text="inputLabel"                       fx:id="inputLabel"            style="-fx-text-fill: red"          layoutX="100" layoutY="50"                                            visible="false"   />
   <Button     text="Select File"                      id="infilepath"                                                   layoutX="175" layoutY="21"    onAction="#onFileChooser"                                 />

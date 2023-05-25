@@ -1,4 +1,4 @@
-package decompressor.Bitwork;
+package decompressor.bitwork;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

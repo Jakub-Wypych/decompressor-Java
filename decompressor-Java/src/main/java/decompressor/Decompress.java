@@ -1,11 +1,11 @@
 package decompressor;
 
-import decompressor.Bitwork.Bitread;
-import decompressor.Bitwork.Bitwrite;
-import decompressor.Bitwork.FileIsEmpty;
-import decompressor.Dictionary.Tree;
-import decompressor.Dictionary.RawDictionary;
-import decompressor.Dictionary.ReadRawDictionary;
+import decompressor.bitwork.Bitread;
+import decompressor.bitwork.Bitwrite;
+import decompressor.bitwork.FileIsEmpty;
+import decompressor.dictionary.Tree;
+import decompressor.dictionary.RawDictionary;
+import decompressor.dictionary.ReadRawDictionary;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /* Used for decompressing files,
 takes care of communication between classes */
 public class Decompress {
-    public static void decompress(String infilepath, String outfilepath, String raw_password) {
+    public static Results decompress(String infilepath, String outfilepath, String raw_password) {
         Password password = new Password(raw_password);
         Bitread bitread; // setting up bitread (also reading raw ident at the same time)
         try {
@@ -28,12 +28,13 @@ public class Decompress {
         Ident ident = new Ident(bitread.readNbits(8));
         ident.check(password.getPassword());
         ArrayList<Object> rawDictionaries = ReadRawDictionary.read(bitread, ident.bit_read());
+        ArrayList<RawDictionary> copyRawDictionaries = new ArrayList<>();
 
-        // DEBUG
-        System.out.println(ident); // print ident
-        for (Object o: rawDictionaries) { // print dictionary
+        System.out.println(ident); // DEBUG print ident
+        for (Object o: rawDictionaries) {
             RawDictionary rd = (RawDictionary)o;
-            System.out.println(rd.symbol() + " " + rd.probability());
+            copyRawDictionaries.add(rd);
+            System.out.println(rd.symbol() + " " + rd.value()); // DEBUG print dictionary
         }
 
         Tree dictionary = new Tree(rawDictionaries);
@@ -44,5 +45,6 @@ public class Decompress {
         Turncate.cut(outfilepath, dictionary, ident.stray_bits());
         bitwrite.close();
         bitread.close();
+        return new Results(ident, copyRawDictionaries, dictionary);
     }
 }

@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /* Allows for easy scene switching,
 automatically stores stage and controller,
-also helps with setting up test, buttons etc.
+also helps with setting up text, buttons etc.
  */
 public abstract class Switcher {
     private Stage stage;
@@ -27,7 +27,7 @@ public abstract class Switcher {
         }
         controller = fxmlLoader.getController();
         setUp();
-        Scene scene = new Scene(root, 320, 240);
+        Scene scene = new Scene(root);
         this.stage.setScene(scene);
         this.stage.show();
     }
