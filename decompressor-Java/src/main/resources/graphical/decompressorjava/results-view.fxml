@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<?import javafx.scene.canvas.Canvas?>
 <TabPane xmlns:fx="http://javafx.com/fxml"
          fx:controller="graphical.decompressorjava.resultsView.ResultsViewController"
          prefHeight="240" prefWidth="320" >
@@ -13,6 +13,6 @@
         <Label fx:id="dictionaryLabel"/>
     </Tab>
     <Tab text="Huffman Tree" closable="false">
-        <Canvas fx:id="treeCanvas" />
+        <AnchorPane fx:id="canvas" />
     </Tab>
 </TabPane>

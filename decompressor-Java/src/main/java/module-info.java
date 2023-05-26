@@ -14,4 +14,8 @@ module decompressor.decompressorjava {
     exports decompressor.bitwork;
     exports decompressor.dictionary;
     opens decompressor.dictionary to javafx.fxml;
+    exports graphical.decompressorjava.resultsView.nodeView;
+    opens graphical.decompressorjava.resultsView.nodeView to javafx.fxml;
+    exports graphical.decompressorjava.resultsView.treeDrawer;
+    opens graphical.decompressorjava.resultsView.treeDrawer to javafx.fxml;
 }

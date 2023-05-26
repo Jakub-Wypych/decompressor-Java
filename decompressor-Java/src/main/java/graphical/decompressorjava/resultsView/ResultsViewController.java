@@ -1,18 +1,18 @@
 package graphical.decompressorjava.resultsView;
 
-import decompressor.dictionary.Node;
-import decompressor.dictionary.RawDictionary;
 import decompressor.Results;
-import graphical.decompressorjava.TreeDrawer;
+import decompressor.dictionary.RawDictionary;
+import graphical.decompressorjava.resultsView.treeDrawer.TreeDrawer;
+import graphical.decompressorjava.resultsView.treeDrawer.TreePosModifier;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 /* Shows results of decompression
  */
 public class ResultsViewController {
 
-    @FXML Canvas treeCanvas;
+    @FXML AnchorPane canvas;
     @FXML Label identLabel, dictionaryLabel;
 
     public void setAll(Results results) {
@@ -22,8 +22,9 @@ public class ResultsViewController {
             dictionaryLabeltxt.append(rd.toString()).append("\n");
         }
         this.dictionaryLabel.setText(dictionaryLabeltxt.toString());
-        TreeDrawer treeDrawer = new TreeDrawer(results.tree().getRoot());
-        treeDrawer.setUp();
-        System.out.println(((Node) results.tree().getRoot()).getPos().toString());
+        TreePosModifier modifier = new TreePosModifier(0, 30, 10, 30, 30);
+        TreeDrawer treeDrawer = new TreeDrawer(results.tree().getRoot(), canvas, modifier);
+        treeDrawer.setModifier(modifier);
+        treeDrawer.drawTree();
     }
 }
