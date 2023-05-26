@@ -13,6 +13,8 @@
         <Label fx:id="dictionaryLabel"/>
     </Tab>
     <Tab text="Huffman Tree" closable="false">
-        <AnchorPane fx:id="canvas" />
+        <ScrollPane fx:id="scrollPane">
+            <AnchorPane fx:id="canvas" onMouseDragged="#onClickAndDrag" onMousePressed="#onMousePressed"/>
+        </ScrollPane>
     </Tab>
 </TabPane>
