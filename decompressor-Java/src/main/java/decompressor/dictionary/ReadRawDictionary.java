@@ -1,6 +1,6 @@
-package decompressor.Dictionary;
+package decompressor.dictionary;
 
-import decompressor.Bitwork.Bitread;
+import decompressor.bitwork.Bitread;
 
 import java.util.ArrayList;
 

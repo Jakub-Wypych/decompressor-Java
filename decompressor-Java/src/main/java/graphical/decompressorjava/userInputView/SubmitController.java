@@ -1,8 +1,8 @@
-package graphical.decompressorjava.UserInputView;
+package graphical.decompressorjava.userInputView;
 
 import decompressor.Decompress;
 import decompressor.Results;
-import graphical.decompressorjava.ResultsViewController;
+import graphical.decompressorjava.resultsView.ResultsViewSwitcher;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
@@ -34,12 +34,11 @@ public class SubmitController {
         if(controller.passwordTextfield.getText().isEmpty())
             password = null;
         else password = controller.passwordTextfield.getText();
-        Decompress.decompress(inputfilepath, outputfilepath, password);
-        return new Results(); // TODO
+        return Decompress.decompress(inputfilepath, outputfilepath, password);
     }
 
-    private void switchSceneResults(ActionEvent event, Results results) { // TODO needs Results
-        ResultsViewController resultsViewController = new ResultsViewController();
-        resultsViewController.switchToMe((Stage) ((Node) event.getSource()).getScene().getWindow());
+    private void switchSceneResults(ActionEvent event, Results results) {
+        ResultsViewSwitcher resultsViewSwitcher = new ResultsViewSwitcher(results);
+        resultsViewSwitcher.switchToMe((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 }

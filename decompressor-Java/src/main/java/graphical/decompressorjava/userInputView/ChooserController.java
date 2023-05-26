@@ -1,4 +1,4 @@
-package graphical.decompressorjava.UserInputView;
+package graphical.decompressorjava.userInputView;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;

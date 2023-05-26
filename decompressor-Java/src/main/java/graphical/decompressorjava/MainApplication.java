@@ -1,6 +1,6 @@
 package graphical.decompressorjava;
 
-import graphical.decompressorjava.UserInputView.UserInputViewController;
+import graphical.decompressorjava.userInputView.UserInputViewController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

@@ -1,7 +1,7 @@
 package decompressor;
 
-import decompressor.Dictionary.Node;
-import decompressor.Dictionary.Tree;
+import decompressor.dictionary.Node;
+import decompressor.dictionary.Tree;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

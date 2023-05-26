@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<TabPane    xmlns:fx="http://javafx.com/fxml"
-            fx:controller="graphical.decompressorjava.ResultsViewController" >
-    <tabs>
-        <Tab text="Identifier" closable="false">
-            <Label fx:id="ident_label" />
-        </Tab>
-        <Tab text="Huffman Tree" closable="false">
-            <Label fx:id="huffman_label" />
-        </Tab>
-        <Tab text="Output File" closable="false">
-            <Label fx:id="output_label" />
-        </Tab>
-    </tabs>
-</TabPane>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="graphical.decompressorjava.resultsView.ResultsViewController"
+            prefHeight="240" prefWidth="320" >
+    <right>
+        <Button text="Options" onAction="#options"/>
+    </right>
+    <bottom>
+        <TabPane>
+            <Tab text="Identifier" closable="false">
+                <Label fx:id="identLabel"/>
+            </Tab>
+            <Tab text="Dictionary" closable="false">
+                <Label fx:id="dictionaryLabel"/>
+            </Tab>
+            <Tab text="Huffman Tree" closable="false">
+                <ScrollPane fx:id="scrollPane">
+                    <AnchorPane fx:id="canvas" onMouseDragged="#onClickAndDrag" onMousePressed="#onMousePressed"/>
+                </ScrollPane>
+            </Tab>
+        </TabPane>
+    </bottom>
+</BorderPane>

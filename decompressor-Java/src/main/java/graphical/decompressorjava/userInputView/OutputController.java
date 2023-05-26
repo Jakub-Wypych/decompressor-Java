@@ -1,4 +1,4 @@
-package graphical.decompressorjava.UserInputView;
+package graphical.decompressorjava.userInputView;
 
 import java.io.File;
 
@@ -22,10 +22,10 @@ public class OutputController {
         if (filepath == null) // no output file path -> use default 'decompressed.bin'
             return true;
         File file = new File(filepath);
-        if(file.canWrite()) {
+        if(file.exists() && !file.canWrite() || !file.exists() && file.canWrite()) {
             controller.outputfileTextfield.setStyle("-fx-border-color: red");
             controller.outputLabel.setVisible(true);
         }
-        return !file.canWrite();
+        return !(file.exists() && !file.canWrite() || !file.exists() && file.canWrite()); // This doesn't "smell" right...
     }
 }

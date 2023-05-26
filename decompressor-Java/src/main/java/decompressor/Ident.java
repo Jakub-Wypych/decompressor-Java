@@ -45,7 +45,7 @@ public final class Ident {
 
     @Override
     public String toString() {
-        return "Stray bits = " + stray_bits + "; password = " + password + "; bit_read = " + bit_read + "; compressed = " + compressed;
+        return "stray bits = " + stray_bits + ";\npassword = " + password + ";\nbit_read = " + bit_read + ";\ncompressed = " + compressed;
     }
 
     public boolean isPassword() { return password; }

@@ -1,7 +1,7 @@
-package graphical.decompressorjava.UserInputView;
+package graphical.decompressorjava.userInputView;
 
-import decompressor.Bitwork.Bitread;
-import decompressor.Bitwork.FileIsEmpty;
+import decompressor.bitwork.Bitread;
+import decompressor.bitwork.FileIsEmpty;
 import decompressor.Ident;
 
 import java.io.FileNotFoundException;
