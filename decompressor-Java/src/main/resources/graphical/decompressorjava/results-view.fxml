@@ -3,18 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane xmlns:fx="http://javafx.com/fxml"
-         fx:controller="graphical.decompressorjava.resultsView.ResultsViewController"
-         prefHeight="240" prefWidth="320" >
-    <Tab text="Identifier" closable="false">
-        <Label fx:id="identLabel"/>
-    </Tab>
-    <Tab text="Dictionary" closable="false">
-        <Label fx:id="dictionaryLabel"/>
-    </Tab>
-    <Tab text="Huffman Tree" closable="false">
-        <ScrollPane fx:id="scrollPane">
-            <AnchorPane fx:id="canvas" onMouseDragged="#onClickAndDrag" onMousePressed="#onMousePressed"/>
-        </ScrollPane>
-    </Tab>
-</TabPane>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="graphical.decompressorjava.resultsView.ResultsViewController"
+            prefHeight="240" prefWidth="320" >
+    <right>
+        <Button text="Options" onAction="#options"/>
+    </right>
+    <bottom>
+        <TabPane>
+            <Tab text="Identifier" closable="false">
+                <Label fx:id="identLabel"/>
+            </Tab>
+            <Tab text="Dictionary" closable="false">
+                <Label fx:id="dictionaryLabel"/>
+            </Tab>
+            <Tab text="Huffman Tree" closable="false">
+                <ScrollPane fx:id="scrollPane">
+                    <AnchorPane fx:id="canvas" onMouseDragged="#onClickAndDrag" onMousePressed="#onMousePressed"/>
+                </ScrollPane>
+            </Tab>
+        </TabPane>
+    </bottom>
+</BorderPane>

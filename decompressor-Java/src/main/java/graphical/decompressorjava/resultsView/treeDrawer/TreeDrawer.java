@@ -38,6 +38,8 @@ public class TreeDrawer {
     }
 
     public void drawTree() {
+        if (!canvas.getChildren().isEmpty())
+            canvas.getChildren().clear();
         setUp();
         draw((Node) root);
     }

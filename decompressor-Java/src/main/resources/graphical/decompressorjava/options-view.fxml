@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="graphical.decompressorjava.resultsView.options.OptionsViewController"
+      prefHeight="400.0" prefWidth="600.0">
+    <TextField promptText="X Addition"      fx:id="xAddition" />
+    <TextField promptText="X Multiplier"    fx:id="xMultiplier" />
+    <TextField promptText="Y Addition"      fx:id="yAddition" />
+    <TextField promptText="Y Multiplier"    fx:id="yMultiplier" />
+    <TextField promptText="Button Width"    fx:id="buttonWidth" />
+    <TextField promptText="Wait Time"       fx:id="waitTime"/>
+    <CheckBox text="symbols in binary"      fx:id="symbolBinary"/>
+    <Button text="Submit" />
+</VBox>

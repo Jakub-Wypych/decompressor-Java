@@ -14,9 +14,10 @@ public class NodeViewSwitcher extends Switcher {
     @Override
     public void setUp() {
         getStage().setTitle("Node");
+        getStage().setResizable(false);
         ((NodeViewController) getController()).probability.setText("Probability: " + node.value());
         if(node instanceof RawDictionary)
-            ((NodeViewController) getController()).symbol.setText("Symbol: " + ((RawDictionary) node).symbol());
+            ((NodeViewController) getController()).symbol.setText("Symbol: " + ((RawDictionary) node).symbol()); // TODO symbolBinary Checkbox
     }
 
     @Override
