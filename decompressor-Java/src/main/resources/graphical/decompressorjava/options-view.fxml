@@ -7,40 +7,45 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="graphical.decompressorjava.resultsView.options.OptionsViewController" >
     <HBox>
-        <TextField promptText="pref: 0.0"      fx:id="xAddition" />
+        <TextField promptText="pref: 0.0"      fx:id="xAddition" style="-fx-border-color: black" onKeyTyped="#onKeyTyped" />
         <Region prefWidth="20"/>
         <Label text="X Addition"/>
     </HBox>
     <HBox>
-        <TextField promptText="pref: 31.0"    fx:id="xMultiplier" />
+        <TextField promptText="pref: 31.0"    fx:id="xMultiplier" style="-fx-border-color: black" onKeyTyped="#onKeyTyped" />
         <Region prefWidth="20"/>
         <Label text="X Multiplier"/>
     </HBox>
     <HBox>
-        <TextField promptText="pref: 10.0"      fx:id="yAddition" />
+        <TextField promptText="pref: 10.0"      fx:id="yAddition" style="-fx-border-color: black" onKeyTyped="#onKeyTyped" />
         <Region prefWidth="20"/>
         <Label text="Y Addition"/>
     </HBox>
     <HBox>
-        <TextField promptText="pref: 28.0"    fx:id="yMultiplier" />
+        <TextField promptText="pref: 28.0"    fx:id="yMultiplier" style="-fx-border-color: black" onKeyTyped="#onKeyTyped" />
         <Region prefWidth="20"/>
         <Label text="Y Multiplier"/>
     </HBox>
     <HBox>
-        <TextField promptText="pref: 30.0"    fx:id="buttonWidth" />
+        <TextField promptText="pref: 30.0"    fx:id="buttonWidth" style="-fx-border-color: black" onKeyTyped="#onKeyTyped" />
         <Region prefWidth="20"/>
         <Label text="Button Width"/>
     </HBox>
     <HBox>
-        <TextField promptText="pref: 0.0"       fx:id="waitTime"/>
+        <TextField promptText="pref: 0.0"       fx:id="waitTime" style="-fx-border-color: black" onKeyTyped="#onKeyTyped" />
         <Region prefWidth="20"/>
         <Label text="Wait Time"/>
     </HBox>
     <HBox>
-        <TextField promptText="pref: /enum"       fx:id="nodeText"/>
+        <TextField promptText="pref: /enum"       fx:id="nodeText" style="-fx-border-color: black" />
         <Region prefWidth="20"/>
         <Label text="Node Text"/>
     </HBox>
     <CheckBox  text="symbols in binary"      fx:id="symbolBinary"/>
+    <HBox>
+        <CheckBox  text="resizable stage"      fx:id="resizeStage"/>
+        <Region prefWidth="20"/>
+        <Label text="Use at your own risk!" style="-fx-text-fill: red" />
+    </HBox>
     <Button    text="Submit" onAction="#onSubmit"/>
 </VBox>

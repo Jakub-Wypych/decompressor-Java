@@ -2,8 +2,10 @@ package graphical.decompressorjava.resultsView.options;
 
 import graphical.decompressorjava.Switcher;
 import graphical.decompressorjava.resultsView.ResultsViewController;
-import graphical.decompressorjava.resultsView.treeDrawer.Options;
 
+/**
+ * Switches to options view
+ */
 public class OptionsViewSwitcher extends Switcher {
     private final Options options;
     private final ResultsViewController controller;
@@ -13,6 +15,10 @@ public class OptionsViewSwitcher extends Switcher {
         this.controller = controller;
     }
 
+    /**
+     * Mainly sets all options to current options values,
+     * i.e. if buttonWidth is 15, set buttonWidth text field to write 15
+     */
     @Override
     public void setUp() {
         getStage().setTitle("Options");
@@ -26,6 +32,7 @@ public class OptionsViewSwitcher extends Switcher {
         optionsViewController.waitTime.setText(String.valueOf(options.waitTime()));
         optionsViewController.nodeText.setText(options.nodeText());
         optionsViewController.symbolBinary.setSelected(options.symbolInBinary());
+        optionsViewController.resizeStage.setSelected(options.stageResizable());
         optionsViewController.setController(controller);
     }
 

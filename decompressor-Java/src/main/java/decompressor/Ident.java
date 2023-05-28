@@ -2,9 +2,10 @@ package decompressor;
 
 import java.util.ArrayList;
 
-/* Reads raw Ident,
-stores information included in the identifier,
-also analyzes its contents (mainly password and compressed)
+/**
+ * Reads raw Ident,
+ * stores information included in the identifier,
+ * also analyzes its contents (mainly password and compressed)
  */
 public final class Ident {
     private final boolean compressed;
@@ -13,6 +14,10 @@ public final class Ident {
     private final byte stray_bits;
     private final ArrayList<Byte> raw_ident;
 
+    /**
+     * Reads raw_ident and stores its it information
+     * @param raw_ident identifier in bit form
+     */
     public Ident(ArrayList<Byte> raw_ident) {
         this.raw_ident = raw_ident;
         this.compressed = raw_ident.get(7) != 0;
@@ -33,6 +38,10 @@ public final class Ident {
         this.stray_bits = stray_bits;
     }
 
+    /**
+     * Checks if identifier has any issues
+     * @param password password
+     */
     public void check(byte password) {
         if(!compressed) {
             throw new RuntimeException(new Exception("ERROR: Given file is not compressed!"));

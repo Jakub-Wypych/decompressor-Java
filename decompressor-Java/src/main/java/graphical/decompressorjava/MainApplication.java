@@ -4,7 +4,9 @@ import graphical.decompressorjava.userInputView.UserInputViewController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-/* Mainly used to initialize the application */
+/**
+ * [Main]ly used to initialize the application
+ */
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) {

@@ -4,10 +4,17 @@ import decompressor.bitwork.Bitread;
 
 import java.util.ArrayList;
 
-/* Read the raw dictionary from the file,
-which later will be used to make a tree
-*/
+/**
+ * Read the raw dictionary from the file,
+ * which later will be used to make a tree
+ */
 public class ReadRawDictionary {
+    /**
+     * Reads the raw dictionary from the infile
+     * @param bitread used for reading bits
+     * @param bit per how many bits to read
+     * @return arraylist of objects used by {@link Tree Tree} to generate a tree
+     */
     public static ArrayList<Object> read(Bitread bitread, byte bit) {
         ArrayList<Object> rawDictionaries = new ArrayList<>();
 
@@ -44,6 +51,11 @@ public class ReadRawDictionary {
         return found_symbol;
     }
 
+    /**
+     * Converts 4 bits into int
+     * @param byte_form the 4 bits
+     * @return values of 4 bits
+     */
     private static int convert_to_int(ArrayList<Byte> byte_form) {
         if(byte_form.size() != 4) // checking if end of file
             ReadRawDictionary.filedamaged(); // if so stop // TODO throw FileDamaged

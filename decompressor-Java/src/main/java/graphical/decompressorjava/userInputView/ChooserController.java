@@ -7,7 +7,8 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 
-/* Handles File Chooser and Directory Chooser
+/**
+ * Handles File Chooser and Directory Chooser
  */
 public class ChooserController {
     private final UserInputViewController controller;
@@ -16,6 +17,11 @@ public class ChooserController {
         this.controller = controller;
     }
 
+    /**
+     * Shows FileChooser window and gets the selected file path,
+     * also checks if said file path is allowed
+     * @param event button which ran said function (needed to show the window)
+     */
     public void showFileChooser(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File("C:\\")); // default path 'C:\'
@@ -32,6 +38,11 @@ public class ChooserController {
         controller.getInputController().check();
     }
 
+    /**
+     * Shows DirectoryChooser window and gets the selected out file path,
+     * also checks if said out file path is allowed
+     * @param event button which ran said function (needed to show the window)
+     */
     public void showDirectoryChooser(ActionEvent event) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setInitialDirectory(new File("C:\\")); // default path 'C:\'

@@ -2,12 +2,17 @@ package decompressor.dictionary;
 
 import java.util.ArrayList;
 
-/* Makes a tree from ArrayList of objects,
-expects that all the objects implement interface "Node"
+/**
+ * Makes a tree from ArrayList of objects,
+ * expects that all the objects implement interface "Node"
  */
 public class Tree {
     private final Object root;
 
+    /**
+     * Creates a tree from the objectArrayList
+     * @param objectArrayList objects which implement the {@link Node Node} interface from which the tree will be built
+     */
     public Tree(ArrayList<Object> objectArrayList) {
         if(objectArrayList.size() == 0) {
             throw new RuntimeException(new Exception("ERROR: Given arraylist is empty!")); // TODO throw FileDamaged

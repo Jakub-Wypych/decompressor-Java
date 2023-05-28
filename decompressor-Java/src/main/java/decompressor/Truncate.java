@@ -7,10 +7,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-/* during Decipher it writes needless bytes at end of file,
-this class cuts them off
+/**
+ * During {@link Decipher Decipher} it writes needless bytes at end of file,
+ * this class cuts them off
  */
-public class Turncate {
+public class Truncate {
+    /**
+     * Removes bytes from end of the file
+     * @param filepath file from witch to cut off the additional bytes
+     * @param root tree used to calculate how many additional bytes there are
+     * @param stray_bits used in tandem with the tree to calculate how many additional bytes there are
+     */
     public static void cut(String filepath, Tree root, int stray_bits) {
         int bytes_to_cut = 0;
         Node current_node = (Node) root.getRoot();

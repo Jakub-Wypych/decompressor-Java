@@ -1,6 +1,11 @@
 package decompressor;
 
-/* Main Class, only used to run Decompress and handle options */
+/**
+ * Main Class, only used to run Decompress and handle options:
+ * -i : input file path
+ * -o : output file path
+ * -p : password
+ */
 public class Main {
     public static void main(String[] args) {
         if(args.length != 2 && args.length != 4 && args.length != 6) {
