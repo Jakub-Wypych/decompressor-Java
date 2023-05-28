@@ -5,5 +5,5 @@ import javafx.scene.control.Label;
 
 public class NodeViewController {
 
-    @FXML Label probability, symbol;
+    @FXML Label probability, symbol; // TODO move NodeViewSwitcher to NodeViewController
 }

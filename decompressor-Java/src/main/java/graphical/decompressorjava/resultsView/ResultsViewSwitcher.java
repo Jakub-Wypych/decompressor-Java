@@ -2,18 +2,22 @@ package graphical.decompressorjava.resultsView;
 
 import decompressor.Results;
 import graphical.decompressorjava.Switcher;
+import graphical.decompressorjava.resultsView.treeDrawer.Options;
 
 public class ResultsViewSwitcher extends Switcher {
 
     private final Results results;
+    private final Options options;
 
-    public ResultsViewSwitcher(Results results) {
+    public ResultsViewSwitcher(Results results, Options options) {
         this.results = results;
+        this.options = options;
     }
 
     @Override
     public void setUp() {
-        ((ResultsViewController) getController()).setAll(results);
+        ((ResultsViewController) getController()).setResults(results);
+        ((ResultsViewController) getController()).setAll(options);
     }
 
     @Override

@@ -3,6 +3,7 @@ package graphical.decompressorjava.userInputView;
 import decompressor.Decompress;
 import decompressor.Results;
 import graphical.decompressorjava.resultsView.ResultsViewSwitcher;
+import graphical.decompressorjava.resultsView.treeDrawer.Options;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
@@ -38,7 +39,7 @@ public class SubmitController {
     }
 
     private void switchSceneResults(ActionEvent event, Results results) {
-        ResultsViewSwitcher resultsViewSwitcher = new ResultsViewSwitcher(results);
+        ResultsViewSwitcher resultsViewSwitcher = new ResultsViewSwitcher(results, new Options(0, 31, 10, 28, 30, 0, "/enum", true));
         resultsViewSwitcher.switchToMe((Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 }

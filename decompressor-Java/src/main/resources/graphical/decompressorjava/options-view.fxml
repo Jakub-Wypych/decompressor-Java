@@ -5,14 +5,42 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="graphical.decompressorjava.resultsView.options.OptionsViewController"
-      prefHeight="400.0" prefWidth="600.0">
-    <TextField promptText="X Addition"      fx:id="xAddition" />
-    <TextField promptText="X Multiplier"    fx:id="xMultiplier" />
-    <TextField promptText="Y Addition"      fx:id="yAddition" />
-    <TextField promptText="Y Multiplier"    fx:id="yMultiplier" />
-    <TextField promptText="Button Width"    fx:id="buttonWidth" />
-    <TextField promptText="Wait Time"       fx:id="waitTime"/>
-    <CheckBox text="symbols in binary"      fx:id="symbolBinary"/>
-    <Button text="Submit" />
+      fx:controller="graphical.decompressorjava.resultsView.options.OptionsViewController" >
+    <HBox>
+        <TextField promptText="pref: 0.0"      fx:id="xAddition" />
+        <Region prefWidth="20"/>
+        <Label text="X Addition"/>
+    </HBox>
+    <HBox>
+        <TextField promptText="pref: 31.0"    fx:id="xMultiplier" />
+        <Region prefWidth="20"/>
+        <Label text="X Multiplier"/>
+    </HBox>
+    <HBox>
+        <TextField promptText="pref: 10.0"      fx:id="yAddition" />
+        <Region prefWidth="20"/>
+        <Label text="Y Addition"/>
+    </HBox>
+    <HBox>
+        <TextField promptText="pref: 28.0"    fx:id="yMultiplier" />
+        <Region prefWidth="20"/>
+        <Label text="Y Multiplier"/>
+    </HBox>
+    <HBox>
+        <TextField promptText="pref: 30.0"    fx:id="buttonWidth" />
+        <Region prefWidth="20"/>
+        <Label text="Button Width"/>
+    </HBox>
+    <HBox>
+        <TextField promptText="pref: 0.0"       fx:id="waitTime"/>
+        <Region prefWidth="20"/>
+        <Label text="Wait Time"/>
+    </HBox>
+    <HBox>
+        <TextField promptText="pref: /enum"       fx:id="nodeText"/>
+        <Region prefWidth="20"/>
+        <Label text="Node Text"/>
+    </HBox>
+    <CheckBox  text="symbols in binary"      fx:id="symbolBinary"/>
+    <Button    text="Submit" onAction="#onSubmit"/>
 </VBox>

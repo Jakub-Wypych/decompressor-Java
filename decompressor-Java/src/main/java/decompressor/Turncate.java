@@ -24,7 +24,7 @@ public class Turncate {
         try {
             RandomAccessFile outfile = new RandomAccessFile(filepath, "rwd");
             if(outfile.length() <= bytes_to_cut)
-                throw new RuntimeException(new Exception("ERROR: Compressed file is damaged!"));
+                throw new RuntimeException(new Exception("ERROR: Compressed file is damaged!")); // TODO throw FileDamaged
             outfile.setLength(outfile.length()-bytes_to_cut);
             outfile.close();
         } catch (FileNotFoundException e) {

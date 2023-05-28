@@ -3,8 +3,8 @@ package graphical.decompressorjava.resultsView;
 import decompressor.Results;
 import decompressor.dictionary.RawDictionary;
 import graphical.decompressorjava.resultsView.options.OptionsViewSwitcher;
+import graphical.decompressorjava.resultsView.treeDrawer.Options;
 import graphical.decompressorjava.resultsView.treeDrawer.TreeDrawer;
-import graphical.decompressorjava.resultsView.treeDrawer.TreePosModifier;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -20,25 +20,23 @@ public class ResultsViewController {
     @FXML AnchorPane canvas;
     @FXML Label identLabel, dictionaryLabel;
 
+    private Results results;
     private double previous_x;
     private double previous_y;
-    private TreePosModifier modifier;
+    private Options options;
 
-    public void setAll(Results results) { // TODO store results
+    public void setAll(Options options) {
+        this.options = options;
         this.identLabel.setText(results.ident().toString());
         StringBuilder dictionaryLabeltxt = new StringBuilder();
         for (RawDictionary rd: results.rawDictionary()) {
-            dictionaryLabeltxt.append(rd.toString()).append("\n"); // TODO symbolBinary Checkbox
+            if(options.symbolInBinary())
+                dictionaryLabeltxt.append(rd.toString()).append("\n");
+            else dictionaryLabeltxt.append(rd.toStringBinaryToText()).append("\n");
         }
         this.dictionaryLabel.setText(dictionaryLabeltxt.toString());
-        modifier = new TreePosModifier(0, 31, 10, 28, 30); // TODO make changeable
-        TreeDrawer treeDrawer = new TreeDrawer(results.tree().getRoot(), canvas, modifier);
-        treeDrawer.setModifier(modifier);
+        TreeDrawer treeDrawer = new TreeDrawer(results.tree().getRoot(), canvas, options);
         treeDrawer.drawTree();
-    }
-
-    public void resetModifier(TreePosModifier modifier) {
-        // TODO this.modifier = modifier; setUP(results);
     }
 
     public void onClickAndDrag(MouseEvent mouseEvent) {
@@ -54,7 +52,11 @@ public class ResultsViewController {
     }
 
     public void options() {
-        OptionsViewSwitcher optionsViewSwitcher = new OptionsViewSwitcher(modifier, this);
+        OptionsViewSwitcher optionsViewSwitcher = new OptionsViewSwitcher(options, this);
         optionsViewSwitcher.switchToMe(new Stage());
+    }
+
+    public void setResults(Results results) {
+        this.results = results;
     }
 }

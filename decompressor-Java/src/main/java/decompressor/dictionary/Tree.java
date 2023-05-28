@@ -10,7 +10,7 @@ public class Tree {
 
     public Tree(ArrayList<Object> objectArrayList) {
         if(objectArrayList.size() == 0) {
-            throw new RuntimeException(new Exception("ERROR: Given arraylist is empty!"));
+            throw new RuntimeException(new Exception("ERROR: Given arraylist is empty!")); // TODO throw FileDamaged
         } else if (objectArrayList.size() == 1) { // one node tree
             root = objectArrayList.get(0); // the one node gets the left and right branch
         } else { // more than one node tree
