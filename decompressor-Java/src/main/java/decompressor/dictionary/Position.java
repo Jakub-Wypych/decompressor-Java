@@ -1,5 +1,10 @@
 package decompressor.dictionary;
 
+/**
+ * Stores the position of the node
+ * @param offsetRight how far to right is the node in the tree
+ * @param depth how low in the tree is the node
+ */
 public record Position(double offsetRight, int depth) {
 
     @Override

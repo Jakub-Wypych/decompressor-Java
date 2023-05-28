@@ -1,7 +1,11 @@
 package decompressor.dictionary;
 
-/* A blank node in a tree,
-i.e. it doesn't have a symbol and has branches
+/**
+ * A blank node in a tree,
+ * i.e. it doesn't have a symbol and has branches
+ * @param left node on the left branch
+ * @param right node on the right branch
+ * @param value its probability
  */
 public record BlankNode(Object left, Object right, int value) implements Node {
     @Override

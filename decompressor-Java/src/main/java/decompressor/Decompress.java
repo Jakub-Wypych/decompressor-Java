@@ -10,10 +10,21 @@ import decompressor.dictionary.ReadRawDictionary;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-/* Used for decompressing files,
-takes care of communication between classes */
+/**
+ * Used for decompressing files,
+ * takes care of communication between classes
+ */
 public class Decompress {
+    /**
+     * Begins the decompression process
+     * @param infilepath the compressed file
+     * @param outfilepath the decompressed file
+     * @param raw_password password in raw form i.e. its a string
+     * @return results of decompression
+     */
     public static Results decompress(String infilepath, String outfilepath, String raw_password) {
+        if (infilepath.equals(outfilepath))
+            throw new RuntimeException(new Exception("ERROR: Input file path equals output file path!"));
         Password password = new Password(raw_password);
         Bitread bitread; // setting up bitread (also reading raw ident at the same time)
         try {
@@ -42,7 +53,7 @@ public class Decompress {
         Decipher.decipher(bitread, bitwrite, dictionary);
         if(bitwrite.getBufferSize() != 0)
             throw new RuntimeException(new Exception("ERROR: Failure in deciphering!")); // should never happen, but you never know
-        Turncate.cut(outfilepath, dictionary, ident.stray_bits());
+        Truncate.cut(outfilepath, dictionary, ident.stray_bits());
         bitwrite.close();
         bitread.close();
         return new Results(ident, copyRawDictionaries, dictionary);

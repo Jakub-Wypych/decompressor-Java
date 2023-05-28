@@ -6,8 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-/* Primarily handles user input (typing and button presses),
-also handles switching to its scene
+/**
+ * Primarily handles user input (typing and button presses),
+ * also handles switching to its scene
  */
 public class UserInputViewController extends Switcher {
     @FXML
@@ -21,6 +22,9 @@ public class UserInputViewController extends Switcher {
     private final OutputController outputController;
     private final ChooserController chooserController;
 
+    /**
+     * Sets up all the controllers for user input
+     */
     public UserInputViewController() {
         submitController = new SubmitController(this);
         passwordController = new PasswordController(this);
@@ -38,25 +42,59 @@ public class UserInputViewController extends Switcher {
         getStage().setResizable(false);
         getStage().setTitle("Decompression App");
     }
+
+    /**
+     * User presses the submit button,
+     * uses {@link SubmitController} to handle it
+     * @param event button which ran the method
+     */
     public void onSubmitButtonClick(ActionEvent event) {
         submitController.tryDecompress(event);
     }
-    public void onInputfileKeyTyped() { // User is changing the input file path
+
+    /**
+     * User is changing the input file path,
+     * clear input warnings, hides the password and check if output is correct
+     */
+    public void onInputfileKeyTyped() {
         inputController.clearWarnings();
         passwordController.hidePasswordTextField();
         outputController.check();
     }
-    public void onPasswordKeyTyped() { // Turns off the password warning, needs to check outfile path, can only exist if infile path is correct, if infile path is modified it stops existing
+
+    /**
+     * User is changing the password,
+     * turns off the password warning and check outfile path
+     * (can only exist if infile path is correct, if infile path is modified it stops existing)
+     */
+    public void onPasswordKeyTyped() {
         passwordController.clearWarnings();
         outputController.check();
     }
-    public void onOutputfileKeyTyped() { // User is inputting the outfile path, turn off any warnings and check the input file path
+
+    /**
+     * User is changing the outfile path,
+     * turn off any warnings and check the input file path
+     */
+    public void onOutputfileKeyTyped() {
         outputController.clearWarnings();
         inputController.check();
     }
+
+    /**
+     * User presses the file chooser button,
+     * uses {@link ChooserController} to handle it
+     * @param event button which ran the method
+     */
     public void onFileChooser(ActionEvent event) { // User is choosing the output file path, need to check outfile path and infile path
         chooserController.showFileChooser(event);
     }
+
+    /**
+     * User presses the directory chooser button,
+     * uses {@link ChooserController} to handle it
+     * @param event button which ran the method
+     */
     public void onDirectoryChooser(ActionEvent event) { // User is choosing the output file directory, need to check outfile path and infile path
         chooserController.showDirectoryChooser(event);
     }

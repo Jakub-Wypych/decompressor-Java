@@ -1,10 +1,10 @@
 package decompressor.dictionary;
 
 import java.util.ArrayList;
-
 import static java.lang.Math.pow;
 
-/* Stores the raw dictionary
+/**
+ * Stores the raw dictionary (i.e. leaf in a tree)
  */
 public final class RawDictionary implements Node {
     private final ArrayList<Byte> symbol;
@@ -59,6 +59,9 @@ public final class RawDictionary implements Node {
         return symbol;
     }
 
+    /**
+     * @return symbols in binary to text form
+     */
     public String symbolBinaryToText() {
         ArrayList<Byte> binary = new ArrayList<>(symbol);
         StringBuilder binaryInText = new StringBuilder();

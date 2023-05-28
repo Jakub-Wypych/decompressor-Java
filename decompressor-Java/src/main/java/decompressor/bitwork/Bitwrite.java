@@ -5,7 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/* Writes bits into file from given Arraylist of bits
+/**
+ * Writes bits into file from given Arraylist of bits
  */
 public class Bitwrite {
     private final FileOutputStream outfile;
@@ -20,6 +21,12 @@ public class Bitwrite {
         }
         buffer = new ArrayList<>();
     }
+
+    /**
+     * Writes as many bits it can into the file,
+     * the rest it stores for later
+     * @param bits the arraylist of bits
+     */
     public void writebits(ArrayList<Byte> bits) {
         for (Byte bit : bits) {
             if (buffer.size() == 8)
@@ -30,6 +37,9 @@ public class Bitwrite {
             writebyte();
     }
 
+    /**
+     * Used by {@link #writebits(ArrayList) writebits} to write into file
+     */
     private void writebyte() {
         int char_value = 0;
         if(buffer.get(0) == 1) // this is stupid but I couldn't be bothered, lemme just TODO
@@ -57,9 +67,16 @@ public class Bitwrite {
         buffer.clear();
     }
 
+    /**
+     * @return how many bits have not been written
+     */
     public int getBufferSize() {
         return buffer.size();
     }
+
+    /**
+     * Closes the file
+     */
     public void close() {
         try {
             outfile.close();

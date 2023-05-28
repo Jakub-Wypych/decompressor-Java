@@ -2,7 +2,8 @@ package graphical.decompressorjava.userInputView;
 
 import java.io.File;
 
-/* Handles outputTextField
+/**
+ * Handles outputTextField
  */
 public class OutputController {
     private final UserInputViewController controller;
@@ -11,11 +12,19 @@ public class OutputController {
         this.controller = controller;
     }
 
+    /**
+     * Resets border color and hides warning text
+     */
     public void clearWarnings() {
         controller.outputfileTextfield.setStyle("-fx-border-color: black");
         controller.outputLabel.setVisible(false);
     }
 
+    /**
+     * Will check if it can write into the output file path or if it can create a new file in said location,
+     * if no output file path was given it will use the default location
+     * @return if output file path is correct
+     */
     public boolean check() {
         clearWarnings();
         String filepath = controller.outputfileTextfield.getText();

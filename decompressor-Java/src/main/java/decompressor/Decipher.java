@@ -8,10 +8,17 @@ import decompressor.dictionary.RawDictionary;
 
 import java.util.ArrayList;
 
-/* The 'deciphering' part of decompression,
-will use the dictionary tree to decipher
-*/
+/**
+ * The 'deciphering' part of decompression,
+ * will use the dictionary tree to decipher
+ */
 public class Decipher {
+    /**
+     * Writes symbols into the out file
+     * @param bitread used for reading bits
+     * @param bitwrite used for writing bits
+     * @param root used for finding symbol in tree
+     */
     public static void decipher(Bitread bitread, Bitwrite bitwrite, Tree root) {
         Byte bit = readbit(bitread);
         Node current_node = (Node) root.getRoot();
@@ -30,6 +37,10 @@ public class Decipher {
         }
     }
 
+    /**
+     * @param bitread used for reading file per bit
+     * @return one bit, if end of file return null
+     */
     private static Byte readbit(Bitread bitread) {
         ArrayList<Byte> read_bits_array = bitread.readNbits(1);
         if(read_bits_array.size() != 1)

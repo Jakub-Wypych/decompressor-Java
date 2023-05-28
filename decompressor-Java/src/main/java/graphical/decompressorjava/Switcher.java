@@ -7,14 +7,24 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/* Allows for easy scene switching,
-automatically stores stage and controller,
-also helps with setting up text, buttons etc.
+/**
+ * Allows for easy scene switching,
+ * automatically stores stage and controller,
+ * also helps with setting up text, buttons etc.
  */
 public abstract class Switcher {
     private Stage stage;
     private Object controller;
+
+    /**
+     * @return .fxml file string example: "example.fxml"
+     */
     public abstract String getUrl();
+
+    /**
+     * Switches to their scene
+     * @param stage what to switch to
+     */
     public void switchToMe(Stage stage) {
         this.stage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(Switcher.class.getResource(getUrl()));
@@ -32,14 +42,23 @@ public abstract class Switcher {
         this.stage.show();
     }
 
+    /**
+     * Is ran before {@link #switchToMe(Stage) switchToMe} sets the scene
+     */
     public void setUp() {
         // Code
     }
 
+    /**
+     * @return his stage
+     */
     public Stage getStage() {
         return stage;
     }
 
+    /**
+     * @return his controller
+     */
     public Object getController() {
         return controller;
     }
