@@ -32,7 +32,7 @@ public class Bitwrite {
 
     private void writebyte() {
         int char_value = 0;
-        if(buffer.get(0) == 1)
+        if(buffer.get(0) == 1) // this is stupid but I couldn't be bothered, lemme just TODO
             char_value += 128;
         if(buffer.get(1) == 1)
             char_value += 64;

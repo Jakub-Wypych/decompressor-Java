@@ -4,19 +4,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="graphical.decompressorjava.resultsView.ResultsViewController"
             prefHeight="240" prefWidth="320" >
-    <right>
-        <Button text="Options" onAction="#options"/>
-    </right>
     <bottom>
+        <Button text="Options" onAction="#options"/>
+    </bottom>
+    <center>
         <TabPane>
             <Tab text="Identifier" closable="false">
-                <Label fx:id="identLabel"/>
+                <VBox alignment="CENTER">
+                    <Label fx:id="identLabel"/>
+                </VBox>
             </Tab>
             <Tab text="Dictionary" closable="false">
-                <Label fx:id="dictionaryLabel"/>
+                <ScrollPane>
+                    <VBox alignment="CENTER">
+                        <Label fx:id="dictionaryLabel"/>
+                    </VBox>
+                </ScrollPane>
             </Tab>
             <Tab text="Huffman Tree" closable="false">
                 <ScrollPane fx:id="scrollPane">
@@ -24,5 +31,5 @@
                 </ScrollPane>
             </Tab>
         </TabPane>
-    </bottom>
+    </center>
 </BorderPane>

@@ -2,24 +2,33 @@ package graphical.decompressorjava.resultsView.treeDrawer;
 
 import decompressor.dictionary.Node;
 import graphical.decompressorjava.resultsView.nodeView.NodeViewSwitcher;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class TreeDrawer {
 
     private final Object root;
     private int offsetRight;
     private final AnchorPane canvas;
-    private TreePosModifier modifier;
+    private final Options options;
     private int nodeNumber;
 
-    public TreeDrawer(Object root, AnchorPane canvas, TreePosModifier modifier) {
+    public TreeDrawer(Object root, AnchorPane canvas, Options options) {
         this.canvas = canvas;
         this.root = root;
-        this.modifier = modifier;
-        offsetRight = 0;
+        this.options = options;
+    }
+
+    public void drawTree() {
+        if (!canvas.getChildren().isEmpty())
+            canvas.getChildren().clear();
+        setUp();
+        draw((Node) root);
     }
 
     private void setUp() {
@@ -37,33 +46,50 @@ public class TreeDrawer {
             setNodePos((Node) node.right(), depth+1);
     }
 
-    public void drawTree() {
-        if (!canvas.getChildren().isEmpty())
-            canvas.getChildren().clear();
-        setUp();
-        draw((Node) root);
-    }
-
     private void draw(Node currentNode) {
-        drawNode(currentNode);
-        if(currentNode.left() != null) {
-            drawLeftBranch(currentNode);
-            draw((Node) currentNode.left());
-        }
-        if(currentNode.right() != null) {
-            drawRightBranch(currentNode);
-            draw((Node) currentNode.right());
+        if (options.waitTime() == 0) {
+            drawNode(currentNode);
+            if (currentNode.left() != null) {
+                drawLeftBranch(currentNode);
+                draw((Node) currentNode.left());
+            }
+            if (currentNode.right() != null) {
+                drawRightBranch(currentNode);
+                draw((Node) currentNode.right());
+            }
+        } else {
+            Timeline timeline = new Timeline(new KeyFrame(Duration.millis(options.waitTime()), event -> {
+                drawNode(currentNode);
+                Timeline timeline1 = new Timeline(new KeyFrame(Duration.millis(options.waitTime()), event1 -> {
+                    if (currentNode.left() != null) {
+                        drawLeftBranch(currentNode);
+                        draw((Node) currentNode.left());
+                    }
+                    Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(options.waitTime()), event2 -> {
+                        if (currentNode.right() != null) {
+                            drawRightBranch(currentNode);
+                            draw((Node) currentNode.right());
+                        }
+                    }));
+                    timeline2.play();
+                }));
+                timeline1.play();
+            }));
+            timeline.play();
         }
     }
 
     private void drawNode(Node node) {
         Button button = new Button();
-        button.setPrefWidth(modifier.buttonWidth());
+        button.setPrefWidth(options.buttonWidth());
         button.setLayoutX(xModifier(node.getPos().offsetRight()));
         button.setLayoutY(yModifier(node.getPos().depth()));
-        button.setText(String.valueOf(nodeNumber++));
+        if(options.nodeText().equals("/enum"))
+            button.setText(String.valueOf(nodeNumber++));
+        else if (!options.nodeText().isEmpty())
+            button.setText(options.nodeText());
         button.setOnAction(event -> {
-            NodeViewSwitcher nodeViewSwitcher = new NodeViewSwitcher(node);
+            NodeViewSwitcher nodeViewSwitcher = new NodeViewSwitcher(node, options.symbolInBinary());
             nodeViewSwitcher.switchToMe(new Stage());
         });
         canvas.getChildren().add(button);
@@ -72,7 +98,7 @@ public class TreeDrawer {
     private void drawLeftBranch(Node node) {
         Line verticaLine = new Line();
         verticaLine.setStartX(xModifier(node.getPos().offsetRight()));
-        verticaLine.setEndX(xModifier(((Node) node.left()).getPos().offsetRight()) + modifier.buttonWidth()/2);
+        verticaLine.setEndX(xModifier(((Node) node.left()).getPos().offsetRight()) + options.buttonWidth()/2);
         verticaLine.setStartY(yModifier(node.getPos().depth())+12);
         verticaLine.setEndY(verticaLine.getStartY());
         Line horizontaLine = new Line();
@@ -86,8 +112,8 @@ public class TreeDrawer {
 
     private void drawRightBranch(Node node) {
         Line verticaLine = new Line();
-        verticaLine.setStartX(xModifier(node.getPos().offsetRight())+modifier.buttonWidth());
-        verticaLine.setEndX(xModifier(((Node) node.right()).getPos().offsetRight()) + modifier.buttonWidth()/2);
+        verticaLine.setStartX(xModifier(node.getPos().offsetRight())+ options.buttonWidth());
+        verticaLine.setEndX(xModifier(((Node) node.right()).getPos().offsetRight()) + options.buttonWidth()/2);
         verticaLine.setStartY(yModifier(node.getPos().depth())+12);
         verticaLine.setEndY(verticaLine.getStartY());
         Line horizontaLine = new Line();
@@ -100,14 +126,10 @@ public class TreeDrawer {
     }
 
     private double yModifier(int y) {
-        return y*modifier.yMultiplier()+modifier.yAddition();
+        return y* options.yMultiplier()+ options.yAddition();
     }
 
     private double xModifier(double x) {
-        return x*modifier.xMultiplier()+modifier.xAddition();
-    }
-
-    public void setModifier(TreePosModifier modifier) {
-        this.modifier = modifier;
+        return x* options.xMultiplier()+ options.xAddition();
     }
 }

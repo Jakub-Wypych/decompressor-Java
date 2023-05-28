@@ -6,9 +6,11 @@ import graphical.decompressorjava.Switcher;
 
 public class NodeViewSwitcher extends Switcher {
     private final Node node;
+    private final boolean symbolInBinary;
 
-    public NodeViewSwitcher(Node node) {
+    public NodeViewSwitcher(Node node, boolean symbolInBinary) {
         this.node = node;
+        this.symbolInBinary = symbolInBinary;
     }
 
     @Override
@@ -16,8 +18,11 @@ public class NodeViewSwitcher extends Switcher {
         getStage().setTitle("Node");
         getStage().setResizable(false);
         ((NodeViewController) getController()).probability.setText("Probability: " + node.value());
-        if(node instanceof RawDictionary)
-            ((NodeViewController) getController()).symbol.setText("Symbol: " + ((RawDictionary) node).symbol()); // TODO symbolBinary Checkbox
+        if(node instanceof RawDictionary) {
+            if (symbolInBinary)
+                ((NodeViewController) getController()).symbol.setText("Symbol: " + ((RawDictionary) node).symbol());
+            else ((NodeViewController) getController()).symbol.setText("Symbol: " + ((RawDictionary) node).symbolBinaryToText());
+        }
     }
 
     @Override

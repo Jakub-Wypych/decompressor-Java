@@ -11,8 +11,10 @@ public final class Ident {
     private final boolean password;
     private final byte bit_read;
     private final byte stray_bits;
+    private final ArrayList<Byte> raw_ident;
 
     public Ident(ArrayList<Byte> raw_ident) {
+        this.raw_ident = raw_ident;
         this.compressed = raw_ident.get(7) != 0;
         this.password = raw_ident.get(4) != 0;
         if(raw_ident.get(6) == 0 )
@@ -45,7 +47,15 @@ public final class Ident {
 
     @Override
     public String toString() {
-        return "stray bits = " + stray_bits + ";\npassword = " + password + ";\nbit_read = " + bit_read + ";\ncompressed = " + compressed;
+        return  "IDENTIFIER\n" +
+                "  " + raw_ident.get(0) + "\n" +
+                "  " + raw_ident.get(1) + "\n" +
+                "  " + raw_ident.get(2) + " - stray bits = " + stray_bits + "\n" +
+                "  " + raw_ident.get(3) + " - means nothing\n" +
+                "  " + raw_ident.get(4) + " - password = " + password + "\n" +
+                "  " + raw_ident.get(5) + "\n" +
+                "  " + raw_ident.get(6) + " - bit_read = " + bit_read + "\n" +
+                "  " + raw_ident.get(7) + " - compressed = " + compressed;
     }
 
     public boolean isPassword() { return password; }

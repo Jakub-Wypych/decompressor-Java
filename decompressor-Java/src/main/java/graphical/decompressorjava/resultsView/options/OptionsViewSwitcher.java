@@ -2,14 +2,14 @@ package graphical.decompressorjava.resultsView.options;
 
 import graphical.decompressorjava.Switcher;
 import graphical.decompressorjava.resultsView.ResultsViewController;
-import graphical.decompressorjava.resultsView.treeDrawer.TreePosModifier;
+import graphical.decompressorjava.resultsView.treeDrawer.Options;
 
 public class OptionsViewSwitcher extends Switcher {
-    private final TreePosModifier modifier;
+    private final Options options;
     private final ResultsViewController controller;
 
-    public OptionsViewSwitcher(TreePosModifier modifier, ResultsViewController controller) {
-        this.modifier = modifier;
+    public OptionsViewSwitcher(Options options, ResultsViewController controller) {
+        this.options = options;
         this.controller = controller;
     }
 
@@ -18,13 +18,14 @@ public class OptionsViewSwitcher extends Switcher {
         getStage().setTitle("Options");
         getStage().setResizable(false);
         OptionsViewController optionsViewController = (OptionsViewController) getController();
-        optionsViewController.xAddition.setText(String.valueOf(modifier.xAddition()));
-        optionsViewController.xMultiplier.setText(String.valueOf(modifier.xMultiplier()));
-        optionsViewController.yAddition.setText(String.valueOf(modifier.yAddition()));
-        optionsViewController.yMultiplier.setText(String.valueOf(modifier.yMultiplier()));
-        optionsViewController.buttonWidth.setText(String.valueOf(modifier.buttonWidth()));
-        optionsViewController.waitTime.setText(String.valueOf(0)); // TODO
-        optionsViewController.symbolBinary.setSelected(true); // TODO
+        optionsViewController.xAddition.setText(String.valueOf(options.xAddition()));
+        optionsViewController.xMultiplier.setText(String.valueOf(options.xMultiplier()));
+        optionsViewController.yAddition.setText(String.valueOf(options.yAddition()));
+        optionsViewController.yMultiplier.setText(String.valueOf(options.yMultiplier()));
+        optionsViewController.buttonWidth.setText(String.valueOf(options.buttonWidth()));
+        optionsViewController.waitTime.setText(String.valueOf(options.waitTime()));
+        optionsViewController.nodeText.setText(options.nodeText());
+        optionsViewController.symbolBinary.setSelected(options.symbolInBinary());
         optionsViewController.setController(controller);
     }
 

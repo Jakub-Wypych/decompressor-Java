@@ -40,15 +40,15 @@ public class ReadRawDictionary {
     private static ArrayList<Byte> next_symbol(Bitread bitread, byte bit) {
         ArrayList<Byte> found_symbol = bitread.readNbits(bit); // reading symbol
         if(found_symbol.size() != bit) // checking if end of file
-            ReadRawDictionary.filedamaged(); // if so stop
+            ReadRawDictionary.filedamaged(); // if so stop // TODO throw FileDamaged
         return found_symbol;
     }
 
     private static int convert_to_int(ArrayList<Byte> byte_form) {
         if(byte_form.size() != 4) // checking if end of file
-            ReadRawDictionary.filedamaged(); // if so stop
+            ReadRawDictionary.filedamaged(); // if so stop // TODO throw FileDamaged
         int int_form = 0;
-        if(byte_form.get(3) == 1)
+        if(byte_form.get(3) == 1) // TODO you can do this better
             int_form += 1;
         if(byte_form.get(2) == 1)
             int_form += 2;
