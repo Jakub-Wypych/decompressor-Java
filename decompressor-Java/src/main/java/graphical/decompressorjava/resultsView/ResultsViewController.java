@@ -1,7 +1,7 @@
 package graphical.decompressorjava.resultsView;
 
-import decompressor.Results;
-import decompressor.dictionary.RawDictionary;
+import decompressor.information.Results;
+import decompressor.information.dictionary.RawDictionary;
 import graphical.decompressorjava.resultsView.options.OptionsViewSwitcher;
 import graphical.decompressorjava.resultsView.options.Options;
 import graphical.decompressorjava.resultsView.treeDrawer.TreeDrawer;
@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * Shows results of decompression
+ * Shows results of deciphering
  */
 public class ResultsViewController {
 

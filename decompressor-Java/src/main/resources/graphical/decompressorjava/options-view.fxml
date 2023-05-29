@@ -43,9 +43,7 @@
     </HBox>
     <CheckBox  text="symbols in binary"      fx:id="symbolBinary"/>
     <HBox>
-        <CheckBox  text="resizable stage"      fx:id="resizeStage"/>
-        <Region prefWidth="20"/>
-        <Label text="Use at your own risk!" style="-fx-text-fill: red" />
+        <CheckBox  text="resizable stage (Use at own risk!)"      fx:id="resizeStage"/>
     </HBox>
     <Button    text="Submit" onAction="#onSubmit"/>
 </VBox>

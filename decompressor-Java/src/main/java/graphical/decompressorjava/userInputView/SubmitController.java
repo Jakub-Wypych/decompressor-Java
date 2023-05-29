@@ -1,7 +1,7 @@
 package graphical.decompressorjava.userInputView;
 
 import decompressor.Decompress;
-import decompressor.Results;
+import decompressor.information.Results;
 import decompressor.exceptions.FileIsDamaged;
 import decompressor.exceptions.WrongPassword;
 import graphical.decompressorjava.resultsView.ResultsViewSwitcher;
@@ -11,7 +11,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 
 /**
- * Handles submit button press, decompression and switching to results view
+ * Handles submit button press, deciphering and switching to results view
  */
 public class SubmitController {
     private final UserInputViewController controller;
@@ -22,12 +22,12 @@ public class SubmitController {
 
 
     /**
-     * Checks if it can decompress and if so start decompression,
+     * Checks if it can decompress and if so start deciphering,
      * if succeeds switch to results view,
      * if not show warning
      * @param event button which ran the method
-     * @throws FileIsDamaged failure in decompression process
-     * @throws WrongPassword failure in decompression process with inputted password
+     * @throws FileIsDamaged failure in deciphering process
+     * @throws WrongPassword failure in deciphering process with inputted password
      */
     public void tryDecompress(ActionEvent event) throws FileIsDamaged, WrongPassword {
         if(canDecompress()) {
@@ -46,10 +46,10 @@ public class SubmitController {
 
 
     /**
-     * Begins the decompression process using the user inputted values
-     * @return results of decompression
-     * @throws FileIsDamaged failure in decompression process
-     * @throws WrongPassword failure in decompression process with inputted password
+     * Begins the deciphering process using the user inputted values
+     * @return results of deciphering
+     * @throws FileIsDamaged failure in deciphering process
+     * @throws WrongPassword failure in deciphering process with inputted password
      */
     private Results startDecompression() throws FileIsDamaged, WrongPassword {
         String inputfilepath = controller.inputfileTextfield.getText();
@@ -66,7 +66,7 @@ public class SubmitController {
     /**
      * Switches to results view window, sets it up with default options
      * @param event needed to switch window
-     * @param results results of the decompression
+     * @param results results of the deciphering
      */
     private void switchSceneResults(ActionEvent event, Results results) {
         ResultsViewSwitcher resultsViewSwitcher = new ResultsViewSwitcher(results, new Options(0, 31, 10, 28, 30, 0, "/enum", true, false));

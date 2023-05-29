@@ -2,7 +2,7 @@ package graphical.decompressorjava.userInputView;
 
 import decompressor.bitwork.Bitread;
 import decompressor.exceptions.FileIsEmpty;
-import decompressor.Ident;
+import decompressor.information.Ident;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

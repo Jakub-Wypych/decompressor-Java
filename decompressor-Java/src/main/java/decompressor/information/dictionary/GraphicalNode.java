@@ -1,4 +1,4 @@
-package decompressor.dictionary;
+package decompressor.information.dictionary;
 
 /**
  * Used for setting and getting coordinates for nodes

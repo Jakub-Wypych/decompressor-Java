@@ -48,7 +48,7 @@ public class UserInputViewController extends Switcher {
     /**
      * User presses the submit button,
      * uses {@link SubmitController} to handle it,
-     * if decompression fails uses {@link InputController} to notify
+     * if deciphering fails uses {@link InputController} to notify
      * @param event button which ran the method
      */
     public void onSubmitButtonClick(ActionEvent event) {

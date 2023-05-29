@@ -1,6 +1,6 @@
 package graphical.decompressorjava.resultsView.treeDrawer;
 
-import decompressor.dictionary.Node;
+import decompressor.information.dictionary.Node;
 import graphical.decompressorjava.resultsView.nodeView.NodeViewSwitcher;
 import graphical.decompressorjava.resultsView.options.Options;
 import javafx.animation.KeyFrame;

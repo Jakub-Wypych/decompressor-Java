@@ -1,9 +1,11 @@
-package decompressor.dictionary;
+package decompressor.information.dictionary;
 
 import decompressor.bitwork.Bitread;
 import decompressor.exceptions.FileIsDamaged;
 
 import java.util.ArrayList;
+
+import static java.lang.Math.pow;
 
 /**
  * Read the raw dictionary from the file,
@@ -70,14 +72,10 @@ public class ReadRawDictionary {
         if(byte_form.size() != 4) // checking if end of file
             throw new FileIsDamaged("ERROR: Compressed file is damaged!"); // if so stop
         int int_form = 0;
-        if(byte_form.get(3) == 1) // TODO you can do this better
-            int_form += 1;
-        if(byte_form.get(2) == 1)
-            int_form += 2;
-        if (byte_form.get(1) == 1)
-            int_form += 4;
-        if (byte_form.get(0) == 1)
-            int_form += 8;
+        for (int i = 3; i >= 0; i--) {
+            if (byte_form.get(3-i) == 1)
+                int_form += pow(2, i);
+        }
         return int_form;
     }
 }

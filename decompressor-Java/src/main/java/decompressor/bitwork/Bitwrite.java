@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static java.lang.Math.pow;
+
 /**
  * Writes bits into file from given Arraylist of bits
  */
@@ -42,22 +44,10 @@ public class Bitwrite {
      */
     private void writebyte() {
         int char_value = 0;
-        if(buffer.get(0) == 1) // this is stupid but I couldn't be bothered, lemme just TODO
-            char_value += 128;
-        if(buffer.get(1) == 1)
-            char_value += 64;
-        if(buffer.get(2) == 1)
-            char_value += 32;
-        if(buffer.get(3) == 1)
-            char_value += 16;
-        if(buffer.get(4) == 1)
-            char_value += 8;
-        if(buffer.get(5) == 1)
-            char_value += 4;
-        if(buffer.get(6) == 1)
-            char_value += 2;
-        if(buffer.get(7) == 1)
-            char_value += 1;
+        for (int i = 7; i >= 0 ; i--) {
+            if (buffer.get(7-i) == 1)
+                char_value += pow(2, i);
+        }
         try {
             outfile.write(char_value);
         } catch (IOException e) {

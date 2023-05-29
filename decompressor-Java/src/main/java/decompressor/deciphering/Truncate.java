@@ -1,7 +1,7 @@
-package decompressor;
+package decompressor.deciphering;
 
-import decompressor.dictionary.Node;
-import decompressor.dictionary.Tree;
+import decompressor.information.dictionary.Node;
+import decompressor.information.dictionary.Tree;
 import decompressor.exceptions.FileIsDamaged;
 
 import java.io.FileNotFoundException;
