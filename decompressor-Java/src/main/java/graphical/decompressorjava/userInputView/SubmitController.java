@@ -2,6 +2,8 @@ package graphical.decompressorjava.userInputView;
 
 import decompressor.Decompress;
 import decompressor.Results;
+import decompressor.exceptions.FileIsDamaged;
+import decompressor.exceptions.WrongPassword;
 import graphical.decompressorjava.resultsView.ResultsViewSwitcher;
 import graphical.decompressorjava.resultsView.options.Options;
 import javafx.event.ActionEvent;
@@ -18,15 +20,18 @@ public class SubmitController {
         this.controller = controller;
     }
 
+
     /**
      * Checks if it can decompress and if so start decompression,
      * if succeeds switch to results view,
      * if not show warning
      * @param event button which ran the method
+     * @throws FileIsDamaged failure in decompression process
+     * @throws WrongPassword failure in decompression process with inputted password
      */
-    public void tryDecompress(ActionEvent event) {
+    public void tryDecompress(ActionEvent event) throws FileIsDamaged, WrongPassword {
         if(canDecompress()) {
-            Results results = startDecompression(); // TODO if decompression fails show warning
+            Results results = startDecompression();
             switchSceneResults(event, results);
         }
     }
@@ -39,11 +44,14 @@ public class SubmitController {
         return controller.getInputController().check() && controller.getOutputController().check();
     }
 
+
     /**
      * Begins the decompression process using the user inputted values
      * @return results of decompression
+     * @throws FileIsDamaged failure in decompression process
+     * @throws WrongPassword failure in decompression process with inputted password
      */
-    private Results startDecompression() {
+    private Results startDecompression() throws FileIsDamaged, WrongPassword {
         String inputfilepath = controller.inputfileTextfield.getText();
         String outputfilepath, password;
         if(controller.outputfileTextfield.getText().isEmpty())

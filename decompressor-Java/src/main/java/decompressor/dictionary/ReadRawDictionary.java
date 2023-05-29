@@ -1,6 +1,7 @@
 package decompressor.dictionary;
 
 import decompressor.bitwork.Bitread;
+import decompressor.exceptions.FileIsDamaged;
 
 import java.util.ArrayList;
 
@@ -14,8 +15,9 @@ public class ReadRawDictionary {
      * @param bitread used for reading bits
      * @param bit per how many bits to read
      * @return arraylist of objects used by {@link Tree Tree} to generate a tree
+     * @throws FileIsDamaged end of file
      */
-    public static ArrayList<Object> read(Bitread bitread, byte bit) {
+    public static ArrayList<Object> read(Bitread bitread, byte bit) throws FileIsDamaged {
         ArrayList<Object> rawDictionaries = new ArrayList<>();
 
         ArrayList<Byte> found_symbol = ReadRawDictionary.next_symbol(bitread, bit); // reading first symbol
@@ -44,21 +46,29 @@ public class ReadRawDictionary {
         return rawDictionaries;
     }
 
-    private static ArrayList<Byte> next_symbol(Bitread bitread, byte bit) {
+    /**
+     * @param bitread used forreading bits
+     * @param bit how many bits to read
+     * @return read symbol from file
+     * @throws FileIsDamaged end of file
+     */
+    private static ArrayList<Byte> next_symbol(Bitread bitread, byte bit) throws FileIsDamaged {
         ArrayList<Byte> found_symbol = bitread.readNbits(bit); // reading symbol
         if(found_symbol.size() != bit) // checking if end of file
-            ReadRawDictionary.filedamaged(); // if so stop // TODO throw FileDamaged
+            throw new FileIsDamaged("ERROR: Compressed file is damaged!"); // if so stop
         return found_symbol;
     }
+
 
     /**
      * Converts 4 bits into int
      * @param byte_form the 4 bits
      * @return values of 4 bits
+     * @throws FileIsDamaged end of file
      */
-    private static int convert_to_int(ArrayList<Byte> byte_form) {
+    private static int convert_to_int(ArrayList<Byte> byte_form) throws FileIsDamaged {
         if(byte_form.size() != 4) // checking if end of file
-            ReadRawDictionary.filedamaged(); // if so stop // TODO throw FileDamaged
+            throw new FileIsDamaged("ERROR: Compressed file is damaged!"); // if so stop
         int int_form = 0;
         if(byte_form.get(3) == 1) // TODO you can do this better
             int_form += 1;
@@ -69,9 +79,5 @@ public class ReadRawDictionary {
         if (byte_form.get(0) == 1)
             int_form += 8;
         return int_form;
-    }
-
-    private static void filedamaged() {
-        throw new RuntimeException(new Exception("ERROR: Compressed file is damaged!"));
     }
 }

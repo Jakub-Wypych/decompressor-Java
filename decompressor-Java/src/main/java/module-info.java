@@ -20,4 +20,5 @@ module decompressor.decompressorjava {
     opens graphical.decompressorjava.resultsView.treeDrawer to javafx.fxml;
     exports graphical.decompressorjava.resultsView.options;
     opens graphical.decompressorjava.resultsView.options to javafx.fxml;
+    exports decompressor.exceptions;
 }
