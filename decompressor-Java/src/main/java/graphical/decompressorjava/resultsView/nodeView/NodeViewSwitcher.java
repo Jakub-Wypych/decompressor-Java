@@ -1,7 +1,7 @@
 package graphical.decompressorjava.resultsView.nodeView;
 
-import decompressor.dictionary.Node;
-import decompressor.dictionary.RawDictionary;
+import decompressor.information.dictionary.Node;
+import decompressor.information.dictionary.RawDictionary;
 import graphical.decompressorjava.Switcher;
 
 /**
@@ -23,7 +23,6 @@ public class NodeViewSwitcher extends Switcher {
     @Override
     public void setUp() {
         getStage().setTitle("Node");
-        getStage().setResizable(false);
         ((NodeViewController) getController()).probability.setText("Probability: " + node.value());
         if(node instanceof RawDictionary) { // checking is said node is a leaf
             if (symbolInBinary)

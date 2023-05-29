@@ -1,4 +1,4 @@
-package decompressor.dictionary;
+package decompressor.information.dictionary;
 
 /**
  * Interface used for Tree class

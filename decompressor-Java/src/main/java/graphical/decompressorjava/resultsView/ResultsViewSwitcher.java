@@ -1,6 +1,6 @@
 package graphical.decompressorjava.resultsView;
 
-import decompressor.Results;
+import decompressor.information.Results;
 import graphical.decompressorjava.Switcher;
 import graphical.decompressorjava.resultsView.options.Options;
 

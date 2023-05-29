@@ -1,15 +1,15 @@
-package decompressor;
+package decompressor.deciphering;
 
 import decompressor.bitwork.Bitread;
 import decompressor.bitwork.Bitwrite;
-import decompressor.dictionary.Tree;
-import decompressor.dictionary.Node;
-import decompressor.dictionary.RawDictionary;
+import decompressor.information.dictionary.Tree;
+import decompressor.information.dictionary.Node;
+import decompressor.information.dictionary.RawDictionary;
 
 import java.util.ArrayList;
 
 /**
- * The 'deciphering' part of decompression,
+ * The 'deciphering' part of deciphering,
  * will use the dictionary tree to decipher
  */
 public class Decipher {

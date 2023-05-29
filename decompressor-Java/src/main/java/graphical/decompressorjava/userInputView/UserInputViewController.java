@@ -1,5 +1,7 @@
 package graphical.decompressorjava.userInputView;
 
+import decompressor.exceptions.FileIsDamaged;
+import decompressor.exceptions.WrongPassword;
 import graphical.decompressorjava.Switcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,11 +47,18 @@ public class UserInputViewController extends Switcher {
 
     /**
      * User presses the submit button,
-     * uses {@link SubmitController} to handle it
+     * uses {@link SubmitController} to handle it,
+     * if deciphering fails uses {@link InputController} to notify
      * @param event button which ran the method
      */
     public void onSubmitButtonClick(ActionEvent event) {
-        submitController.tryDecompress(event);
+        try {
+            submitController.tryDecompress(event);
+        } catch (FileIsDamaged e) {
+            inputController.fileDamaged(false);
+        } catch (WrongPassword e) {
+            inputController.fileDamaged(true);
+        }
     }
 
     /**

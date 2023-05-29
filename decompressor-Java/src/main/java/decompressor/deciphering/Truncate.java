@@ -1,7 +1,8 @@
-package decompressor;
+package decompressor.deciphering;
 
-import decompressor.dictionary.Node;
-import decompressor.dictionary.Tree;
+import decompressor.information.dictionary.Node;
+import decompressor.information.dictionary.Tree;
+import decompressor.exceptions.FileIsDamaged;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,13 +13,15 @@ import java.io.RandomAccessFile;
  * this class cuts them off
  */
 public class Truncate {
+
     /**
      * Removes bytes from end of the file
      * @param filepath file from witch to cut off the additional bytes
      * @param root tree used to calculate how many additional bytes there are
      * @param stray_bits used in tandem with the tree to calculate how many additional bytes there are
+     * @throws FileIsDamaged more bytes to cut then there are bytes in file
      */
-    public static void cut(String filepath, Tree root, int stray_bits) {
+    public static void cut(String filepath, Tree root, int stray_bits) throws FileIsDamaged {
         int bytes_to_cut = 0;
         Node current_node = (Node) root.getRoot();
         for(int i =0; i<stray_bits; i++) {
@@ -31,7 +34,7 @@ public class Truncate {
         try {
             RandomAccessFile outfile = new RandomAccessFile(filepath, "rwd");
             if(outfile.length() <= bytes_to_cut)
-                throw new RuntimeException(new Exception("ERROR: Compressed file is damaged!")); // TODO throw FileDamaged
+                throw new FileIsDamaged("ERROR: Compressed file is damaged!");
             outfile.setLength(outfile.length()-bytes_to_cut);
             outfile.close();
         } catch (FileNotFoundException e) {

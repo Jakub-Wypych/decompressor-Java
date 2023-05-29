@@ -1,4 +1,4 @@
-package decompressor;
+package decompressor.information;
 
 /**
  * Reads password

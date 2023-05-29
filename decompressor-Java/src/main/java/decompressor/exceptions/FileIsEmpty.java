@@ -1,4 +1,4 @@
-package decompressor.bitwork;
+package decompressor.exceptions;
 
 /**
  * An exception for if the file is empty

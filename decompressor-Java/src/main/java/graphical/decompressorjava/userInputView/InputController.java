@@ -1,8 +1,8 @@
 package graphical.decompressorjava.userInputView;
 
 import decompressor.bitwork.Bitread;
-import decompressor.bitwork.FileIsEmpty;
-import decompressor.Ident;
+import decompressor.exceptions.FileIsEmpty;
+import decompressor.information.Ident;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -61,5 +61,15 @@ public class InputController {
             return setWarning("File is empty!");
         }
         return true;
+    }
+
+    /**
+     * Sets a warning for if the compressed file is damaged / user inputted wrong password
+     * @param hasPassword has user inputted password
+     */
+    public void fileDamaged(boolean hasPassword) {
+        if(hasPassword)
+            setWarning("Wrong password!");
+        else setWarning("File is damaged!");
     }
 }

@@ -1,5 +1,7 @@
 package decompressor.bitwork;
 
+import decompressor.exceptions.FileIsEmpty;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;

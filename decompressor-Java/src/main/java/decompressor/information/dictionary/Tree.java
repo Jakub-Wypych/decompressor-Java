@@ -1,4 +1,4 @@
-package decompressor.dictionary;
+package decompressor.information.dictionary;
 
 import java.util.ArrayList;
 

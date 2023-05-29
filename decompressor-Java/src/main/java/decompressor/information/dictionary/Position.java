@@ -1,4 +1,4 @@
-package decompressor.dictionary;
+package decompressor.information.dictionary;
 
 /**
  * Stores the position of the node

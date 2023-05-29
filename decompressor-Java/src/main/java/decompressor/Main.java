@@ -1,5 +1,8 @@
 package decompressor;
 
+import decompressor.exceptions.FileIsDamaged;
+import decompressor.exceptions.WrongPassword;
+
 /**
  * Main Class, only used to run Decompress and handle options:
  * -i : input file path
@@ -7,7 +10,7 @@ package decompressor;
  * -p : password
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileIsDamaged, WrongPassword {
         if(args.length != 2 && args.length != 4 && args.length != 6) {
             throw new RuntimeException(new Exception("ERROR: Insufficient amount of arguments given!"));
         }

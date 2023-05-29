@@ -1,4 +1,4 @@
-package decompressor.dictionary;
+package decompressor.information.dictionary;
 
 /**
  * A blank node in a tree,

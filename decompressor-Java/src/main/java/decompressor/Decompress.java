@@ -2,10 +2,17 @@ package decompressor;
 
 import decompressor.bitwork.Bitread;
 import decompressor.bitwork.Bitwrite;
-import decompressor.bitwork.FileIsEmpty;
-import decompressor.dictionary.Tree;
-import decompressor.dictionary.RawDictionary;
-import decompressor.dictionary.ReadRawDictionary;
+import decompressor.deciphering.Decipher;
+import decompressor.deciphering.Truncate;
+import decompressor.exceptions.FileIsDamaged;
+import decompressor.exceptions.FileIsEmpty;
+import decompressor.information.Ident;
+import decompressor.information.Password;
+import decompressor.information.Results;
+import decompressor.information.dictionary.Tree;
+import decompressor.information.dictionary.RawDictionary;
+import decompressor.information.dictionary.ReadRawDictionary;
+import decompressor.exceptions.WrongPassword;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -15,14 +22,17 @@ import java.util.ArrayList;
  * takes care of communication between classes
  */
 public class Decompress {
+
     /**
-     * Begins the decompression process
+     * Begins the deciphering process
      * @param infilepath the compressed file
      * @param outfilepath the decompressed file
-     * @param raw_password password in raw form i.e. its a string
-     * @return results of decompression
+     * @param raw_password password in raw form i.e. it's a string
+     * @return results of deciphering
+     * @throws WrongPassword throws if raw_password is null and FileIsDamaged was thrown
+     * @throws FileIsDamaged failure in deciphering process
      */
-    public static Results decompress(String infilepath, String outfilepath, String raw_password) {
+    public static Results decompress(String infilepath, String outfilepath, String raw_password) throws WrongPassword, FileIsDamaged {
         if (infilepath.equals(outfilepath))
             throw new RuntimeException(new Exception("ERROR: Input file path equals output file path!"));
         Password password = new Password(raw_password);
@@ -38,7 +48,14 @@ public class Decompress {
         }
         Ident ident = new Ident(bitread.readNbits(8));
         ident.check(password.getPassword());
-        ArrayList<Object> rawDictionaries = ReadRawDictionary.read(bitread, ident.bit_read());
+        ArrayList<Object> rawDictionaries;
+        try {
+            rawDictionaries = ReadRawDictionary.read(bitread, ident.bit_read());
+        } catch (FileIsDamaged e) {
+            if (raw_password == null)
+                throw e;
+            else throw new WrongPassword("ERROR: Wrong password!");
+        }
         ArrayList<RawDictionary> copyRawDictionaries = new ArrayList<>();
 
         System.out.println(ident); // DEBUG print ident
@@ -53,7 +70,13 @@ public class Decompress {
         Decipher.decipher(bitread, bitwrite, dictionary);
         if(bitwrite.getBufferSize() != 0)
             throw new RuntimeException(new Exception("ERROR: Failure in deciphering!")); // should never happen, but you never know
-        Truncate.cut(outfilepath, dictionary, ident.stray_bits());
+        try {
+            Truncate.cut(outfilepath, dictionary, ident.stray_bits());
+        } catch (FileIsDamaged e) {
+            if (raw_password == null)
+                throw e;
+            else throw new WrongPassword("ERROR: Wrong password!");
+        }
         bitwrite.close();
         bitread.close();
         return new Results(ident, copyRawDictionaries, dictionary);
