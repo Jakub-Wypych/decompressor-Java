@@ -46,7 +46,11 @@ public class OptionsViewController {
         try {
             if (textField.getText().isEmpty())
                 return  0;
-            else return Double.parseDouble(textField.getText());
+            double value = Double.parseDouble(textField.getText());
+            if (value < 0) {
+                textField.setStyle("-fx-border-color: red");
+                return defaultValue;
+            } else return value;
         } catch (NumberFormatException e) { // String is not a number
             textField.setStyle("-fx-border-color: red");
             return defaultValue;
