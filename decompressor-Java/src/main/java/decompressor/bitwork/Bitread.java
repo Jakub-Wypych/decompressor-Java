@@ -37,7 +37,8 @@ public class Bitread {
     }
 
     /**
-     * Used by {@link #readNbits(int) readNbits} to read file
+     * Used by {@link #readNbits(int) readNbits} to read file,
+     * returns null if end of file
      * @return read byte from file
      */
     private Byte readByte() {
@@ -53,7 +54,9 @@ public class Bitread {
     }
 
     /**
-     * Reads file per N bits
+     * Reads file per N bits,
+     * if it can't read per N bits returns however many bits it managed to read,
+     * if reached end of file returns empty arraylist
      * @param N how many bits to read
      * @return arraylist of 1s and 0s
      */
