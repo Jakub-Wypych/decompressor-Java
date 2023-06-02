@@ -57,15 +57,17 @@ public class Decompress {
             else throw new WrongPassword("ERROR: Wrong password!");
         }
         ArrayList<RawDictionary> copyRawDictionaries = new ArrayList<>();
-
-        System.out.println(ident); // DEBUG print ident
         for (Object o: rawDictionaries) {
             RawDictionary rd = (RawDictionary)o;
             copyRawDictionaries.add(rd);
-            System.out.println(rd.symbol() + " " + rd.value()); // DEBUG print dictionary
         }
-
         Tree dictionary = new Tree(rawDictionaries);
+
+        System.out.println(ident + "\n"); // DEBUG print ident
+        for (RawDictionary rd: copyRawDictionaries)
+            System.out.println(rd.symbol() + " " + rd.value()); // DEBUG print dictionary
+        System.out.println( "\n" + dictionary.getRoot()); // DEBUG print Tree
+
         Bitwrite bitwrite = new Bitwrite(outfilepath); // setting up bitwrite
         Decipher.decipher(bitread, bitwrite, dictionary);
         if(bitwrite.getBufferSize() != 0)

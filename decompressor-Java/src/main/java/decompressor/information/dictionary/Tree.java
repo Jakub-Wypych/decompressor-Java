@@ -25,7 +25,6 @@ public class Tree {
                 Node right = (Node) objectArrayList.get(1);
                 int value = left.value() + right.value();
                 BlankNode blanknode = new BlankNode(left, right, value);
-                System.out.println(blanknode); // DEBUG
                 objectArrayList.remove(1);
                 objectArrayList.remove(0);
 
