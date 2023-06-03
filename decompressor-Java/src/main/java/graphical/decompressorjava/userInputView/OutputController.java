@@ -35,6 +35,7 @@ public class OutputController {
             controller.outputfileTextfield.setStyle("-fx-border-color: red");
             controller.outputLabel.setVisible(true);
         }
-        return !(file.exists() && !file.canWrite() || !file.exists() && file.canWrite()); // This doesn't "smell" right...
+        // If access denied will throw exception, a workaround would be uncomfortable, write in documentation to give directories where can write
+        return !(file.exists() && !file.canWrite() || !file.exists() && file.canWrite());
     }
 }
