@@ -42,6 +42,7 @@ public class InputController {
      * @return if inputted infile is correct
      */
     public boolean check() {
+        clearWarnings();
         String infilepath = controller.inputfileTextfield.getText();
         if (infilepath.isEmpty()) // did user input the input file path?
             return setWarning("An input file is required!");

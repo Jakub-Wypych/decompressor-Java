@@ -18,6 +18,6 @@
   <Label      text="Select:"                                                                                            layoutX="175" layoutY="145"                                                             />
   <Button     text="File"                             id="outfilepath"                                                  layoutX="210" layoutY="141"   onAction="#onFileChooser"                                 />
   <Button     text="Directory"                                                                                          layoutX="245" layoutY="141"   onAction="#onDirectoryChooser"                            />
-  <Label      text="File not found!"                  fx:id="outputLabel"           style="-fx-text-fill: red"          layoutX="100" layoutY="171"                                           visible="false"   />
+  <Label      text="Failure with file writing!"       fx:id="outputLabel"           style="-fx-text-fill: red"          layoutX="100" layoutY="171"                                           visible="false"   />
   <Button     text="Submit"                                                                                             layoutX="140" layoutY="200"   onAction="#onSubmitButtonClick"                           />
 </AnchorPane>
